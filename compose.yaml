@@ -1,0 +1,50 @@
+services:
+  php:
+    build: .
+    container_name: php_apache_book_ecommerce
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8080:80"
+    networks:
+      - php_network
+    links:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_book_ecommerce
+    env_file:
+      - ./docker.env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - php_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_book_ecommerce
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "8081:80"
+    networks:
+      - php_network
+    depends_on:
+      - mysql
+
+networks:
+  php_network:
+    driver: bridge
+
+volumes:
+  mysql_data:

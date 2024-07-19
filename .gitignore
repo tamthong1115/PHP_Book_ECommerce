@@ -1,0 +1,6 @@
+*.log
+*.cache
+*.bak
+*.swp
+.env
+docker.env
