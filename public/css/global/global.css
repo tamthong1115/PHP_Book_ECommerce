@@ -1,0 +1,84 @@
+@import url("variables.css");
+
+/* Base Styles */
+* {
+  font-family: var(--font-family);
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+/* H element global */
+h1 {
+  font-size: var(--h1-font-size);
+  line-height: var(--h1-line-height);
+}
+
+h2 {
+  font-size: var(--h2-font-size);
+  line-height: var(--h2-line-height);
+}
+
+h3 {
+  font-size: var(--h3-font-size);
+  line-height: var(--h3-line-height);
+}
+
+h4 {
+  font-size: var(--h4-font-size);
+  line-height: var(--h4-line-height);
+}
+
+h5 {
+  font-size: var(--h5-font-size);
+  line-height: var(--h5-line-height);
+}
+
+p {
+  font-size: var(--p-font-size);
+  margin: var(--p-margin);
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.border {
+  border: 1px solid var(--border-color);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+  :root {
+    --font-size-base: 18px;
+    --spacing-medium: 14px;
+  }
+}
+
+@media (max-width: 992px) {
+  :root {
+    --font-size-base: 16px;
+    --spacing-medium: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --font-size-base: 14px;
+    --spacing-medium: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  :root {
+    --font-size-base: 12px;
+    --spacing-medium: 8px;
+  }
+}
