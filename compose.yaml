@@ -1,11 +1,13 @@
 services:
   web:
-    image: php:8.2-apache
+    build: .
     container_name: apache_php_book_ecommerce
     ports:
       - "80:80"
     volumes:
       - .:/var/www/html/
+    environment:
+      - APP_ENV=docker
     depends_on:
       - db
 
@@ -14,16 +16,21 @@ services:
     container_name: mariadb_book_ecommerce
     restart: always
     environment:
-      MARIADB_ROOT_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: book_ecommerce
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:5.2.1
+    image: phpmyadmin:latest
     container_name: phpmyadmin_book_ecommerce
     environment:
       PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: password
     ports:
       - "8080:80"
     depends_on:

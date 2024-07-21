@@ -29,13 +29,15 @@ function protocol()
 
 function current_domain()
 {
-    // Check if running in a local environment like XAMPP
-    if ($_SERVER['HTTP_HOST'] == 'localhost') {
-        // Customize the port and directory name as per your XAMPP configuration
-        return protocol() . $_SERVER['HTTP_HOST'] . '/PHP_Book_Ecommerce';
-    } else {
+    $app_env = getenv('APP_ENV');
+    if($app_env == 'docker') {
         // For production or other environments, use the standard domain
         return protocol() . $_SERVER['HTTP_HOST'];
     }
+    // Check if running in a local environment like XAMPP
+    else {
+        // Customize the port and directory name as per your XAMPP configuration
+        return protocol() . $_SERVER['HTTP_HOST'] . '/PHP_Book_Ecommerce';
+    } 
 }
 ?>
