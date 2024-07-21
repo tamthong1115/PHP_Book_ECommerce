@@ -1,50 +1,39 @@
 services:
-  php:
-    build: .
-    container_name: php_apache_book_ecommerce
-    volumes:
-      - .:/var/www/html
+  web:
+    image: php:8.2-apache
+    container_name: apache_php_book_ecommerce
     ports:
-      - "8080:80"
-    networks:
-      - php_network
-    links:
-      - mysql
+      - "80:80"
+    volumes:
+      - .:/var/www/html/
+    depends_on:
+      - db
 
-  mysql:
-    image: mysql:8.0
-    container_name: mysql_book_ecommerce
-    env_file:
-      - ./docker.env
+  db:
+    image: mariadb:10.4.32
+    container_name: mariadb_book_ecommerce
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-      - "3306:3306"
+      MARIADB_ROOT_PASSWORD: password
     volumes:
-      - mysql_data:/var/lib/mysql
-    networks:
-      - php_network
+      - db_data:/var/lib/mysql
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin/phpmyadmin:5.2.1
     container_name: phpmyadmin_book_ecommerce
     environment:
-      PMA_HOST: mysql
-      PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: rootpassword
     ports:
-      - "8081:80"
-    networks:
-      - php_network
+      - "8080:80"
     depends_on:
-      - mysql
+      - db
 
-networks:
-  php_network:
-    driver: bridge
+  # tomcat:
+  #   image: tomcat:8.5.96
+  #   container_name: tomcat
+  #   ports:
+  #     - "8081:8080"
 
 volumes:
-  mysql_data:
+  db_data:
