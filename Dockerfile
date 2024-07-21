@@ -1,5 +1,7 @@
 # Use the official PHP image with Apache
-FROM php:8.1-apache
+FROM php:8.2-apache
+
+ENV APP_ENV=docker
 
 # Install required PHP extensions
 RUN docker-php-ext-install mysqli pdo pdo_mysql
