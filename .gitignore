@@ -3,4 +3,4 @@
 *.bak
 *.swp
 .env
-docker.env
+local

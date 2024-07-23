@@ -38,6 +38,10 @@ function current_domain()
     else {
         // Customize the port and directory name as per your XAMPP configuration
         return protocol() . $_SERVER['HTTP_HOST'] . '/PHP_Book_Ecommerce';
-    } 
+    }
 }
+?>
+
+<?php
+require_once 'template/layout/footer.php';
 ?>
