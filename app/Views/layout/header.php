@@ -10,7 +10,7 @@
     <header >
         <div class="header">
 
-            <a href="#"><img src="/public/icons/logo.svg" class="header__logo" alt="logo"></a>
+            <a href="#"><img src="public/icons/logo.svg" class="header__logo" alt="logo"></a>
             
             <div class="header__search">
                 <form action="">
@@ -21,13 +21,13 @@
             
             <div>
                 <ul class="header__navbar">
-                    <li><a class="active" href="/index.php">Trang chủ</a></li>
-                    <li><a href="#">Mua sắm</a></li>
-                    <li><a href="/about">Về chúng tôi</a></li>
-                    <li><a href="#">Liên hệ</a></li>
-                    <li><a class="header__cart" href="#"><img src="/public/icons/shopping-cart.svg" alt="cart-logo"></a></li>
-                    <li><a href="/sign-in">Đăng nhập</a></li>
-                    <li><a href="/sign-up">Đăng ký</a></li>
+                    <li><a class="active" href="app/Views/pages/home.php"><img src="public/icons/home.svg" title="Trang chủ"></a></li>
+                    
+                    <li><a href="app/Views/pages/about.php"><img src="public/icons/about.svg" title="Về chúng tôi" ></a></li>
+                    <li><a href="#"><img src="public/icons/contact.png" title="Liên hệ" ></a></li>
+                    <li><a  href="#"><img src="public/icons/cart.png" title="Giỏ hàng"> </a></li>
+                    <li><a href="/sign-in"><img src="public/icons/sign-in-1.png" title="Đăng nhập" ></a></li>
+                    <li><a href="/sign-up"><img src="public/icons/sign-out.png" title="Đăng kí" ></a></li>
                 </ul>
             </div>
         </div>

@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title; ?></title>
-    <link rel="stylesheet" href="/public/css/layout/header.css" type="text/css">
-    <link rel="stylesheet" href="/public/css/layout/footer.css" type="text/css">
-    <link rel="stylesheet" href="/public/css/global/styles.css" type="text/css">
+    <base href="/PHP_Book_ECommerce/">
+    <link rel="stylesheet" href="public/css/layout/header.css" type="text/css">
+    <link rel="stylesheet" href="public/css/layout/footer.css" type="text/css">
+    <link rel="stylesheet" href="public/css/global/styles.css" type="text/css">
+    <link rel="icon" type="image/gif" href="public/icons/favicon.gif">
 </head>
 <body>
     <?php include 'header.php'; ?>
