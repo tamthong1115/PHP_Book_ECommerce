@@ -5,7 +5,13 @@ namespace Core;
 class Router
 {
     protected $routes = [];
-    protected $basePath = '/PHP_Book_ECommerce';
+    protected $basePath;
+
+    public function __construct($basePath = '')
+    {
+        $this->basePath = $basePath;
+    }
+
 
     public function get($uri, $action)
     {
@@ -23,12 +29,10 @@ class Router
         $uri = $this->stripBasePath($uri);
     
         // Debugging statements
-    error_log("Request Method: $method");
-    error_log("Processed URI: $uri");
-    error_log("Available Routes: " . print_r($this->routes, true));
+        error_log("Request Method: $method");
+        error_log("Processed URI: $uri");
+        error_log("Available Routes: " . print_r($this->routes, true));
 
-        $method = $_SERVER['REQUEST_METHOD'];
-        $uri = $this->stripBasePath($uri);
 
         if (isset($this->routes[$method][$uri])) {
             $action = $this->routes[$method][$uri];

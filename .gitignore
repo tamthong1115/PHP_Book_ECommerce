@@ -5,3 +5,5 @@
 .env
 local
 /vendor/
+/.idea/
+

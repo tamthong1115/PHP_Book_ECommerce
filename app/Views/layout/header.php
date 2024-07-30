@@ -10,7 +10,8 @@
     <header >
         <div class="header">
 
-            <a href="#"><img src="/public/icons/logo.svg" class="header__logo" alt="logo"></a>
+        <a href="<?= base_url('/') ?>"><img src="<?= base_url('/public/icons/logo.svg') ?>" class="header__logo" alt="logo"></a>
+
             
             <div class="header__search">
                 <form action="">
@@ -18,19 +19,18 @@
                     <button type="submit">Tìm kiếm</button>
                 </form>
             </div>
-            
+                        
             <div>
                 <ul class="header__navbar">
-                    <li><a class="active" href="/index.php">Trang chủ</a></li>
-                    <li><a href="#">Mua sắm</a></li>
-                    <li><a href="/about">Về chúng tôi</a></li>
+                    <li><a class="active" href="<?= base_url('/') ?>">Trang chủ</a></li>
+                    <li><a href="<?= base_url('/about') ?>">Về chúng tôi</a></li>
                     <li><a href="#">Liên hệ</a></li>
-                    <li><a class="header__cart" href="#"><img src="/public/icons/shopping-cart.svg" alt="cart-logo"></a></li>
-                    <li><a href="/sign-in">Đăng nhập</a></li>
-                    <li><a href="/sign-up">Đăng ký</a></li>
+                    <li><a class="header__cart" href="#"><img src="<?= base_url('/public/icons/shopping-cart.svg') ?>" alt="cart-logo"></a></li>
+                    <li><a href="<?= base_url('/sign-in') ?>">Đăng nhập</a></li>
+                    <li><a href="<?= base_url('/sign-up') ?>">Đăng ký</a></li>
                 </ul>
             </div>
-        </div>
-    </header>
+            </div>
+            </header>
 
 

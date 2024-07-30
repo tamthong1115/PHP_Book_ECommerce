@@ -2,9 +2,10 @@
 $title = "Đăng nhập";
 ob_start();
 ?>
-<link rel="stylesheet" href="/public/css/pages/auth.css">
+<link rel="stylesheet" href="<?= base_url('/public/css/pages/auth.css') ?>">
 <div class="auth-container">
-    <form action="/sign-in" method="POST">
+    <form action="<?= base_url('/sign-in') ?>" method="POST">
+
         <h2>Đăng nhập</h2>
         <?php if (isset($error)): ?>
             <p class="error"><?= $error ?></p>
@@ -16,7 +17,7 @@ ob_start();
             <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
         </div>
         <button type="submit">Đăng nhập</button>
-        <p>Chưa có tài khoản? <a href="/sign-up">Đăng ký tại đây</a></p>
+        <p>Chưa có tài khoản? <a href="<?= base_url('/sign-up') ?>">Đăng ký tại đây</a></p>
     </form>
 </div>
 <?php
