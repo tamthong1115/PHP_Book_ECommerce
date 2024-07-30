@@ -22,12 +22,12 @@
                         
             <div>
                 <ul class="header__navbar">
-                    <li><a class="active" href="<?= base_url('/') ?>">Trang chủ</a></li>
-                    <li><a href="<?= base_url('/about') ?>">Về chúng tôi</a></li>
-                    <li><a href="#">Liên hệ</a></li>
-                    <li><a class="header__cart" href="#"><img src="<?= base_url('/public/icons/shopping-cart.svg') ?>" alt="cart-logo"></a></li>
-                    <li><a href="<?= base_url('/sign-in') ?>">Đăng nhập</a></li>
-                    <li><a href="<?= base_url('/sign-up') ?>">Đăng ký</a></li>
+                    <li><a class="active" href="<?= base_url('/') ?>"><img src="<?= base_url('/public/icons/home.svg') ?>" title="Trang chủ"></a></li>
+                    <li><a href="<?= base_url('/about') ?>"><img src="<?= base_url('/public/icons/about.svg') ?>" title="Về chúng tôi"></a></li>
+                    <li><a href="#"><img src="<?= base_url('/public/icons/contact.png') ?>" title="Liên hệ"></a></li>
+                    <li><a class="header__cart" href="#"><img src="<?= base_url('/public/icons/cart.png') ?>" title="Giỏ hàng"></a></li>
+                    <li><a href="<?= base_url('/sign-in') ?>"><img src="<?= base_url('/public/icons/sign-in-1.png') ?>" title="Đăng nhập"></a></li>
+                    <li><a href="<?= base_url('/sign-up') ?>"><img src="<?= base_url('/public/icons/sign-out.png') ?>" title="Đăng kí"></a></li>
                 </ul>
             </div>
             </div>
