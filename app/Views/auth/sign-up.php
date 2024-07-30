@@ -2,9 +2,11 @@
 $title = "Đăng ký";
 ob_start();
 ?>
+
 <link rel="stylesheet" href="<?= base_url('/public/css/pages/auth.css') ?>">
 <div class="auth-container">
     <form action="<?= base_url('/sign-up') ?>" method="POST">
+
         <h2>Đăng ký</h2>
         <div class="form-group">
             <input type="text" id="username" name="username" placeholder="Username" required>

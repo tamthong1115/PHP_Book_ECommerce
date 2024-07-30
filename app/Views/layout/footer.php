@@ -19,6 +19,7 @@
             <p>Phone: +123 456 7890</p>
         </div>
     </div>
+
 </footer>
 </body>
 </html>

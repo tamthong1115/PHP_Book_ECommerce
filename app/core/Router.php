@@ -12,6 +12,7 @@ class Router
         $this->basePath = $basePath;
     }
 
+
     public function get($uri, $action)
     {
         $this->routes['GET'][$uri] = $action;
@@ -31,6 +32,7 @@ class Router
         error_log("Request Method: $method");
         error_log("Processed URI: $uri");
         error_log("Available Routes: " . print_r($this->routes, true));
+
 
         if (isset($this->routes[$method][$uri])) {
             $action = $this->routes[$method][$uri];

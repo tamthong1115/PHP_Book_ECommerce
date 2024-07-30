@@ -11,6 +11,7 @@
         <div class="header">
 
         <a href="<?= base_url('/') ?>"><img src="<?= base_url('/public/icons/logo.svg') ?>" class="header__logo" alt="logo"></a>
+
             
             <div class="header__search">
                 <form action="">
@@ -31,4 +32,5 @@
             </div>
             </div>
             </header>
+
 

@@ -5,6 +5,7 @@ ob_start();
 <link rel="stylesheet" href="<?= base_url('/public/css/pages/auth.css') ?>">
 <div class="auth-container">
     <form action="<?= base_url('/sign-in') ?>" method="POST">
+
         <h2>Đăng nhập</h2>
         <?php if (isset($error)): ?>
             <p class="error"><?= $error ?></p>
