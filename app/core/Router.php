@@ -12,7 +12,6 @@ class Router
         $this->basePath = $basePath;
     }
 
-
     public function get($uri, $action)
     {
         $this->routes['GET'][$uri] = $action;
@@ -22,7 +21,22 @@ class Router
     {
         $this->routes['POST'][$uri] = $action;
     }
+    
+    public function put($uri, $action)
+    {
+        $this->routes['PUT'][$uri] = $action;
+    }
 
+    public function delete($uri, $action)
+    {
+        $this->routes['DELETE'][$uri] = $action;
+    }
+
+    /*The dispatch method is responsible for handling incoming HTTP requests. 
+     * It determines the appropriate action based on the request method (e.g., GET, POST) 
+     * and the request URI, and then executes that action. If no matching route is found, 
+     * it returns a 404 Not Found response.
+     */
     public function dispatch($uri)
     {
         $method = $_SERVER['REQUEST_METHOD'];
@@ -49,6 +63,7 @@ class Router
         }
     }
 
+    // E.g. /PHP_Book_ECommerce/products/1 => /products/1
     protected function stripBasePath($uri)
     {
         if (strpos($uri, $this->basePath) === 0) {

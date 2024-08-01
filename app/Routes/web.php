@@ -3,11 +3,14 @@ use App\Controllers\HomeController;
 use App\Controllers\UserController;
 use App\Controllers\AuthController;
 
+use App\Middleware\AdminMiddleware;
+use App\Middleware\AuthMiddleware;
+
 
 $router->get('/', [HomeController::class, 'index']);
 $router->get('/about', [HomeController::class, 'about']);
 
-$router->get('/users', [UserController::class, 'index']);
+$router->get('/users', [AuthMiddleware::class],[UserController::class, 'index']);
 $router->get('/users/create', [UserController::class, 'create']);
 $router->post('/users/create', [UserController::class, 'create']);
 

@@ -3,6 +3,18 @@ $title = "Đăng ký";
 ob_start();
 ?>
 
+<?php if (isset($error)) : ?>
+    <div class="prompt prompt-error">
+        <?php echo htmlspecialchars($error); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($success)) : ?>
+    <div class="prompt prompt-success">
+        <?php echo htmlspecialchars($success); ?>
+    </div>
+<?php endif; ?>
+
 <link rel="stylesheet" href="<?= base_url('/public/css/pages/auth.css') ?>">
 <div class="auth-container">
     <form action="<?= base_url('/sign-up') ?>" method="POST">
@@ -18,7 +30,7 @@ ob_start();
             <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
         </div>
         <div class="form-group">
-            <input type="password" id="confirm-password" name="confirm-password" placeholder="Xác nhận lại mật khẩu" required>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Xác nhận lại mật khẩu" required>
         </div>
         <button type="submit">Đăng ký</button>
         <p>Đã có tài khoản? <a href="<?= base_url('/sign-in') ?>">Đăng nhập tại đây</a></p>
