@@ -1,6 +1,9 @@
 <?php
-// File: app/core/Router.php
+
 namespace Core;
+
+require_once 'app/Middlewares/AuthMiddleware.php';
+require_once 'app/Middlewares/AdminMiddleware.php';
 
 class Router
 {
@@ -12,61 +15,64 @@ class Router
         $this->basePath = $basePath;
     }
 
-    public function get($uri, $action)
+    public function get($uri, $action, $middleware = [])
     {
-        $this->routes['GET'][$uri] = $action;
+        $this->routes['GET'][$uri] = ['action' => $action, 'middleware' => $middleware];
     }
 
-    public function post($uri, $action)
+    public function post($uri, $action, $middleware = [])
     {
-        $this->routes['POST'][$uri] = $action;
-    }
-    
-    public function put($uri, $action)
-    {
-        $this->routes['PUT'][$uri] = $action;
+        $this->routes['POST'][$uri] = ['action' => $action, 'middleware' => $middleware];
     }
 
-    public function delete($uri, $action)
+    public function put($uri, $action, $middleware = [])
     {
-        $this->routes['DELETE'][$uri] = $action;
+        $this->routes['PUT'][$uri] = ['action' => $action, 'middleware' => $middleware];
     }
 
-    /*The dispatch method is responsible for handling incoming HTTP requests. 
-     * It determines the appropriate action based on the request method (e.g., GET, POST) 
-     * and the request URI, and then executes that action. If no matching route is found, 
-     * it returns a 404 Not Found response.
-     */
+    public function delete($uri, $action, $middleware = [])
+    {
+        $this->routes['DELETE'][$uri] = ['action' => $action, 'middleware' => $middleware];
+    }
+
     public function dispatch($uri)
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $uri = $this->stripBasePath($uri);
-    
-        // Debugging statements
-        error_log("Request Method: $method");
-        error_log("Processed URI: $uri");
-        error_log("Available Routes: " . print_r($this->routes, true));
-
 
         if (isset($this->routes[$method][$uri])) {
-            $action = $this->routes[$method][$uri];
-            if (is_callable($action)) {
-                call_user_func($action);
-            } elseif (is_array($action)) {
-                $controller = new $action[0]();
-                $method = $action[1];
-                $controller->$method();
+            $route = $this->routes[$method][$uri];
+            $action = $route['action'];
+            $middleware = $route['middleware'];
+
+            $request = $_SERVER;
+            $next = function ($request) use ($action) {
+                if (is_callable($action)) {
+                    call_user_func($action);
+                } elseif (is_array($action)) {
+                    $controller = new $action[0]();
+                    $method = $action[1];
+                    $controller->$method();
+                }
+            };
+
+            foreach (array_reverse($middleware) as $middlewareClass) {
+                $next = function ($request) use ($middlewareClass, $next) {
+                    $middlewareInstance = new $middlewareClass();
+                    return $middlewareInstance->handle($request, $next);
+                };
             }
+
+            $next($request);
         } else {
             http_response_code(404);
             echo "404 Not Found";
         }
     }
 
-    // E.g. /PHP_Book_ECommerce/products/1 => /products/1
-    protected function stripBasePath($uri)
+    private function stripBasePath($uri)
     {
-        if (strpos($uri, $this->basePath) === 0) {
+        if ($this->basePath && strpos($uri, $this->basePath) === 0) {
             return substr($uri, strlen($this->basePath));
         }
         return $uri;

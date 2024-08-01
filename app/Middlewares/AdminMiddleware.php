@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Middleware;
+
 require_once 'app/utils/jwtUtil.php';
+
 use Utils\JwtUtil;
 
-class AdminAuthMiddleware
+class AdminMiddleware
 {
     public function handle($request, $next)
     {
