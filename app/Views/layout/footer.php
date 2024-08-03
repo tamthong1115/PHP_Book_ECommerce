@@ -2,7 +2,9 @@
     <div class="footer__container">
         <div class="footer__about">
             <h2>About Us</h2>
-            <p>We are a leading e-commerce platform providing a wide range of products to our customers.</p>
+            <h2>Thành viên tham gia:</h2>
+        <pre>Trương Tam Thông MSSV: </pre>
+        <pre>Hoàng Gia Bảo       MSSV: 2251120334 </pre>
         </div>
         <div class="footer__links">
             <h2>Quick Links</h2>

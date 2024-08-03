@@ -1,5 +1,5 @@
 <?php
-$title = "Home";
+$title = "Nhà sách TamThong";
 ob_start();
 ?>
     <h1>Welcome to the Home Page!</h1>
