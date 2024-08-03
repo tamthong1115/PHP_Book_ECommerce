@@ -1,12 +1,9 @@
 <?php
-
 namespace App\Middleware;
-
 require_once 'app/utils/jwtUtil.php';
-
 use Utils\JwtUtil;
 
-class AdminMiddleware
+class AuthMiddleware
 {
     public function handle($request, $next)
     {
@@ -18,11 +15,6 @@ class AdminMiddleware
 
         try {
             $decoded = JwtUtil::decode($_COOKIE['auth_token']);
-            if (!$decoded->isAdmin) {
-                http_response_code(403);
-                echo "403 Forbidden";
-                exit;
-            }
             $_SESSION['user'] = [
                 'id' => $decoded->user_id,
                 'username' => $decoded->username,
