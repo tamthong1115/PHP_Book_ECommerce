@@ -20,6 +20,7 @@ class UserController extends Controller
     public function create()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
             $data = [
                 'avatar' => $_POST['avatar'],
                 'first_name' => $_POST['first_name'],
@@ -31,6 +32,8 @@ class UserController extends Controller
                 'phone_number' => $_POST['phone_number'],
                 'address' => $_POST['address'],
             ];
+
+        
             $this->model->createUser($data);
             $this->redirect('/users');
         } else {
