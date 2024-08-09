@@ -1,0 +1,103 @@
+main {
+  padding: 2rem;
+  background-color: var(--color-light);
+  border-radius: var(--border-radius-1);
+  box-shadow: var(--box-shadow);
+}
+
+main h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-dark);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+form label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-dark);
+}
+
+form input:not(input[type="checkbox"]),
+form textarea,
+form select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--color-dark);
+  border-radius: var(--border-radius-1);
+  font-size: 1rem;
+}
+
+form textarea {
+  resize: vertical;
+}
+
+form button {
+  padding: 0.75rem;
+  border: none;
+  border-radius: var(--border-radius-1);
+  background-color: var(--color-primary);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.imageUploads {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #84b9f0;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.imageUploads:hover {
+  background-color: #3381d5;
+}
+
+.numberContainer {
+  display: flex;
+  gap: 1rem;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+#categories div {
+  display: flex;
+  align-items: center;
+}
+
+#categories input[type="checkbox"] {
+  margin-right: 0.5rem;
+  appearance: auto;
+}
+
+#categories label {
+  font-size: 1rem;
+  color: var(--color-dark);
+}

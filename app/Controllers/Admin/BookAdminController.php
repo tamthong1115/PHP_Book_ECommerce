@@ -29,14 +29,48 @@ class BookAdminController extends Controller
                 'stock' => $_POST['stock'],
                 'author' => $_POST['author'],
                 'publisher' => $_POST['publisher'],
+                'language' => $_POST['language'],
+                'publication_year' => $_POST['publication_year'],
+                'pages' => $_POST['pages'],
+                'weight' => $_POST['weight'],
+                'format' => $_POST['format'],
             ];
+
+            // Create book and get the book ID
             $bookId = $this->model->createBook($data);
+
             $categories = $_POST['categories'];
             $this->model->addBookCategories($bookId, $categories);
+
+            $images = $_FILES['images'];
+            $imagePaths = $this->uploadImages($bookId, $images);
+
+            // Save image paths to the database
+            $this->model->addBookImages($bookId, $imagePaths);
+
             $this->redirect('/admin/books');
         } else {
             $categories = $this->model->getAllCategories();
             $this->render('admin/books/addBook', ['categories' => $categories]);
         }
+    }
+
+    private function uploadImages($bookId, $images)
+    {
+        $uploadDir = 'uploads/' . $bookId . '/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true); 
+        }
+
+        $imagePaths = [];
+        foreach ($images['tmp_name'] as $key => $tmpName) {
+            $fileName = basename($images['name'][$key]);
+            $filePath = $uploadDir . $fileName;
+            if (move_uploaded_file($tmpName, $filePath)) {
+                $imagePaths[] = $filePath;
+            }
+        }
+
+        return $imagePaths;
     }
 }

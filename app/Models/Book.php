@@ -14,11 +14,11 @@ class Book extends Model
 
     public function createBook($data)
     {
-        $sql = "INSERT INTO books (name, description, summary, price, stock, author, publisher, created_at) 
-                VALUES (:name, :description, :summary, :price, :stock, :author, :publisher, CURRENT_TIMESTAMP)";
+        $sql = "INSERT INTO books (name, description, summary, price, stock, author, publisher,language,publication_year,pages,weight,format, created_at) 
+                VALUES (:name, :description, :summary, :price, :stock, :author, :publisher,:language,:publication_year,:pages,:weight,:format, CURRENT_TIMESTAMP)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($data);
-        return $this->pdo->lastInsertId(); 
+        return $this->pdo->lastInsertId();
     }
 
     public function addBookCategories($bookId, $categories)
@@ -27,6 +27,15 @@ class Book extends Model
         $stmt = $this->pdo->prepare($sql);
         foreach ($categories as $categoryId) {
             $stmt->execute(['book_id' => $bookId, 'category_id' => $categoryId]);
+        }
+    }
+
+    public function addBookImages($bookId, $imagePaths)
+    {
+        $sql = "INSERT INTO book_images (book_id, image_url, created_at) VALUES (:book_id, :image_url, CURRENT_TIMESTAMP)";
+        $stmt = $this->pdo->prepare($sql);
+        foreach ($imagePaths as $imagePath) {
+            $stmt->execute(['book_id' => $bookId, 'image_url' => $imagePath]);
         }
     }
 

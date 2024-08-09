@@ -11,6 +11,7 @@ use App\Middleware\AdminMiddleware;
 use App\Middleware\AuthMiddleware;
 
 
+global $router;
 
 $router->get('/', [HomeController::class, 'index']);
 $router->get('/about', [HomeController::class, 'about']);
