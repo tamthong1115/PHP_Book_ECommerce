@@ -10,7 +10,7 @@ class Router
     protected $routes = [];
     protected $basePath;
 
-    public function __construct($basePath = '')
+    public function __construct($basePath = '/')
     {
         $this->basePath = $basePath;
     }
