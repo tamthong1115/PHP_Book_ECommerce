@@ -11,8 +11,8 @@ class User extends Model
     {
         return $this->getAll('users');
     }
-
-    public function createUser($data) : bool
+    
+    public function createUser($data): bool
     {
         $sql = "INSERT INTO users (avatar, first_name, last_name, username, email, password, birth_of_date, phone_number, address) 
                 VALUES (:avatar, :first_name, :last_name, :username, :email, :password, :birth_of_date, :phone_number, :address)";

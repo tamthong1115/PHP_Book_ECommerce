@@ -1,16 +1,19 @@
-.header {
+.header__container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1.4rem 8rem;
+  justify-content: space-around;
+  padding: 1.4rem 5rem;
   background-color: var(--secondary-color);
   box-shadow: 0 0.3125rem 0.9375rem rgba(0, 0, 0, 0.06);
 }
 
-/* Medium devices (tablets, less than 992px) */
-@media (max-width: 1500px) {
+@media (max-width: 768px) {
   .header {
-    padding: 1.4rem 5rem 1.4rem 0.1rem; /* Decreased horizontal padding */
+    padding: 1.4rem 5rem 1.4rem 0.1rem;
+  }
+  .header__search form {
+    width: 20rem;
+    background-color: red;
   }
 }
 
@@ -18,12 +21,15 @@
   width: 3rem;
 }
 
+.header__search {
+  padding: 0 3rem;
+}
 .header__search * {
   background-color: white;
 }
 .header__search form {
   display: flex;
-  width: 45rem;
+  width: 50rem;
   min-width: 20rem;
   border-radius: 1rem;
   gap: 0;

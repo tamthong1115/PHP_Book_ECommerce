@@ -28,6 +28,7 @@ CREATE TABLE `categories` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(100),
   `description` varchar(255),
+  `parent_id` integer,
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
   `deleted_at` timestamp
 );
@@ -48,6 +49,11 @@ CREATE TABLE `books` (
   `stock` integer NOT NULL,
   `author` varchar(100) NOT NULL,
   `publisher` varchar(100),
+  'weight' decimal(10,2),
+  `language` varchar(50) NOT NULL,
+  `publication_year` integer NOT NULL,
+  `format` varchar(50) NOT NULL,
+  `pages` integer NOT NULL,
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
   `deleted_at` timestamp
 );
@@ -170,3 +176,5 @@ ALTER TABLE `reviews` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 ALTER TABLE `reviews` ADD FOREIGN KEY (`book_id`) REFERENCES `books` (`id`);
 
 ALTER TABLE `discounts` ADD FOREIGN KEY (`order_id`) REFERENCES `order_details` (`id`);
+
+
