@@ -1,9 +1,9 @@
 <footer class="footer">
     <div class="footer__container">
         <div class="footer__about">
-            <h2>About Us</h2>
+            <h2 id="footer_about_link"><a href="<?= base_url('/about') ?>">About Us</a></h2>
             <h2>Thành viên tham gia:</h2>
-        <pre>Trương Tam Thông MSSV: </pre>
+        <pre>Trương Tam Thông MSSV: 2251120387 </pre>
         <pre>Hoàng Gia Bảo       MSSV: 2251120334 </pre>
         </div>
         <div class="footer__links">

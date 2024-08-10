@@ -1,0 +1,20 @@
+/*about css */
+#about-title {
+    text-align: center;
+    color: var(--primary-color);
+}
+#p3 a:hover{
+    color: var(--link-hover-color);
+}
+#about-img{
+    float: right;
+}
+marquee{
+    background-color: var(--primary-color);
+    color:white;
+}
+
+/*footer css */
+.footer__about>#footer_about_link>a:hover{
+    color: var(--link-hover-color);
+  }

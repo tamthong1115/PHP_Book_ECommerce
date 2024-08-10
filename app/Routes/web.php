@@ -10,6 +10,7 @@ use App\Middleware\AuthMiddleware;
 
 $router->get('/', [HomeController::class, 'index']);
 $router->get('/about', [HomeController::class, 'about']);
+$router->get('/contact', [HomeController::class, 'contact']);
 
 $router->get('/users', [UserController::class, 'index'], [AdminMiddleware::class]);
 $router->get('/users/create', [UserController::class, 'create'], [AdminMiddleware::class]);

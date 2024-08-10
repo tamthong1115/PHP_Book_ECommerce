@@ -51,3 +51,6 @@
 .footer__links a:hover {
   color: #ff6347;
 }
+.footer__about>#footer_about_link>a:hover{
+  color: var(--link-hover-color);
+}

@@ -15,4 +15,8 @@ class HomeController extends Controller
     {
         $this->render('pages/about');
     }
+    public function contact()
+    {
+    $this->render('pages/contact');
+    }
 }

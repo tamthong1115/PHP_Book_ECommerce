@@ -23,7 +23,7 @@
 }
 .header__search form {
   display: flex;
-  width: 50rem;
+  width: 45rem;
   min-width: 20rem;
   border-radius: 1rem;
   gap: 0;
@@ -64,7 +64,7 @@
 }
 
 .header__navbar li a {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--color-link-navbar);
   transition: 0.3s ease;
@@ -86,4 +86,8 @@
 
 .header__navbar li a:hover::after {
   width: 50%;
+}
+
+.nav-icon{
+  display: none;
 }

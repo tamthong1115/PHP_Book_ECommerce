@@ -6,11 +6,14 @@
     <title><?php echo $title; ?></title>
     <!-- favicon -->
     <link rel="icon" href="/PHP_Book_ECommerce/public/icons/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/PHP_Book_ECommerce/public/icons/favicon.gif" type="image/gif">
+    <!-- css -->
     <link rel="stylesheet" href="/PHP_Book_ECommerce/public/css/layout/header.css" type="text/css">
     <link rel="stylesheet" href="/PHP_Book_ECommerce/public/css/layout/footer.css" type="text/css">
     <link rel="stylesheet" href="/PHP_Book_ECommerce/public/css/global/styles.css" type="text/css">
     <link rel="stylesheet" href="/PHP_Book_ECommerce/public/css/pages/about.css" type="text/css">
-    <link rel="icon" href="/PHP_Book_ECommerce/public/icons/favicon.gif" type="image/gif">
+    <link rel="stylesheet" href="/PHP_Book_ECommerce/public/css/pages/contact.css" type="text/css">
+    
 
 </head>
 <body>

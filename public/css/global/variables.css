@@ -1,6 +1,6 @@
 /* Global Variables */
 :root {
-  --primary-color: #0066ff;
+  --primary-color: #00c3ff;
   --primary-color-dark: #0157e0;
   --secondary-color: #e3e6f3;
 
@@ -33,6 +33,7 @@
   /* p */
   --p-font-size: 1rem;
   --p-margin: 0.9rem 0 1.4rem 0;
+  ;
 }
 
 @keyframes fadeOut {
