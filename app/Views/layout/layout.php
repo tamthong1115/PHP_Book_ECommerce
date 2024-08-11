@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/PHP_Book_ECommerce/public/css/layout/footer.css" type="text/css">
     <link rel="stylesheet" href="/PHP_Book_ECommerce/public/css/global/styles.css" type="text/css">
     <link rel="stylesheet" href="/PHP_Book_ECommerce/public/css/pages/about.css" type="text/css">
+    <link rel="stylesheet" href="/PHP_Book_ECommerce/public/css/pages/contact.css" type="text/css">
     <link rel="icon" href="/PHP_Book_ECommerce/public/icons/favicon.gif" type="image/gif">
 
 </head>

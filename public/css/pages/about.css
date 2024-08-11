@@ -1,0 +1,10 @@
+#about-title{
+    text-align: center;
+
+}
+.p3 a{
+    color: hsl(12, 100%, 50%);
+}
+.p3 a:hover{
+    color: var(--primary-color);
+}

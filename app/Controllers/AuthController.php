@@ -37,7 +37,12 @@ class AuthController extends Controller
                 $jwt = JwtUtil::encode($payload);
 
                 setcookie('auth_token', $jwt, time() + (86400 * 30), "/");
-                $this->redirect('/');
+                
+                if ($user['isAdmin']) {
+                    $this->redirect('/admin');
+                } else {
+                    $this->redirect('/');
+                }
             } else {
                 $this->render('auth/sign-in', ['error' => 'Invalid email/username or password']);
             }

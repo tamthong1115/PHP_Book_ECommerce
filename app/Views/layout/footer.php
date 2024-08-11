@@ -3,8 +3,8 @@
         <div class="footer__about">
             <h2>About Us</h2>
             <h2>Thành viên tham gia:</h2>
-        <pre>Trương Tam Thông MSSV: </pre>
-        <pre>Hoàng Gia Bảo       MSSV: 2251120334 </pre>
+            <span>Trương Tam Thông MSSV: 2251120387</span><br>
+            <span>Hoàng Gia Bảo MSSV: 2251120334</span>
         </div>
         <div class="footer__links">
             <h2>Quick Links</h2>
