@@ -21,7 +21,6 @@ body {
   margin-left: auto;
 }
 
-
 /* H element global */
 html {
   scroll-behavior: smooth;
@@ -74,9 +73,55 @@ a {
   border: 1px solid var(--border-color);
 }
 
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.prompt {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  width: 13rem;
+  border-radius: var(--border-radius);
+  font-family: var(--font-family);
+  position: fixed;
+  top: 5rem;
+  right: 1rem;
+  transform: translateX(-50%);
+  z-index: 10000000;
+  text-align: center;
+  animation: fadeIn 1s, fadeOut 4s 3s forwards;
+}
+
+.prompt-success {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.prompt-error {
+  background-color: var(--danger-color);
+  color: white;
+}
+
 .modal-signIn,
 .modal-signUp {
-  position: fixed; /* Ensure the modal is positioned relative to the viewport */
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(
@@ -87,7 +132,7 @@ a {
   border-radius: 1rem;
   padding: 0;
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.9); /* Combine centering and scaling */
+  transform: translate(-50%, -50%) scale(0.9);
   transition: opacity 0.2s ease-out, transform 0.2s ease-out,
     overlay 0.2s ease-out allow-discrete, display 0.2s ease-out allow-discrete;
 }

@@ -61,6 +61,13 @@ class BookAdminController extends Controller
         }
     }
 
+    public function delete($bookId)
+    {
+        $this->model->deleteBook($bookId);
+        $this->redirect('/admin/books');
+
+    }
+
     private function uploadImages($bookId, $images)
 {
     $uploadDir = 'uploads/' . $bookId . '/';

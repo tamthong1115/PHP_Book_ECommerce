@@ -1,9 +1,14 @@
+<?php
+
+use Utils\AuthUtil; ?>
+
 <link rel="stylesheet" href="<?= base_url('/public/css/components/booksBanner.css') ?>">
 <section id="product1" class="section-p1">
-    <h2><?= $bannerTitle?></h2>
+    <h2><?= $bannerTitle ?></h2>
     <p>Summer Collection New Morden Design</p>
     <div class="pro-container">
-        <?php if (isset($books) && is_iterable($books)) : ?>
+        <?php
+        if (isset($books) && is_iterable($books)) : ?>
             <?php foreach ($books as $book) : ?>
                 <div class="pro">
                     <a href="<?= base_url('/book/' . $book['id']) ?>">
@@ -25,6 +30,12 @@
                                 <img id="cart" src="<?= base_url('/public/img/header/cart-shopping-solid.svg') ?>" alt="">
                             </a>
                         </span>
+
+                        <?php if (AuthUtil::isAdmin()) : ?>
+                            <form action="<?= base_url('/admin/books/delete/' . $book['id']) ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?');">
+                                <button type="submit">Delete</button>
+                            </form>
+                        <?php endif; ?>
                     </div>
                 </div>
             <?php endforeach; ?>

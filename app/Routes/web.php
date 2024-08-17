@@ -39,3 +39,4 @@ $router->get('/admin', [HomeAdminController::class, 'index'], [AdminMiddleware::
 $router->get('/admin/books', [BookAdminController::class, 'index'], [AdminMiddleware::class]);
 $router->get('/admin/books/add-book', [BookAdminController::class, 'add'], [AdminMiddleware::class]);
 $router->post('/admin/books/add-book', [BookAdminController::class, 'add'], [AdminMiddleware::class]);
+$router->post('/admin/books/delete/{id}', [BookAdminController::class, 'delete'], [AdminMiddleware::class]);

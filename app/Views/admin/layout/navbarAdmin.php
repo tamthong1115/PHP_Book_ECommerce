@@ -2,7 +2,6 @@
     <div class="top">
         <div class="logo">
             <img src="/PHP_Book_ECommerce/public/admin/images/logo.svg" alt="Logo" />
-            <h2>EGA<span class="danger">TOR</span></h2>
         </div>
         <div class="close" id="close-btn">
             <span class="material-icons-sharp"> close </span>

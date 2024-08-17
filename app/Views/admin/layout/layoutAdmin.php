@@ -11,7 +11,6 @@
 </head>
 
 <body>
-    <? echo base_url('/public/admin/css/style.css') ?>
     <div class="container">
 
         <?php include 'navbarAdmin.php'; ?>

@@ -8,4 +8,9 @@ class AuthUtil
     {
         return isset($_SESSION['user_id']);
     }
+
+    public static function isAdmin()
+    {
+        return isset($_SESSION['user_id']) && $_SESSION['isAdmin'] == 1;
+    }
 }

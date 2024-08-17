@@ -44,6 +44,7 @@
         </dialog>
 
         <script src="<?= base_url('/public/js/pages/auth.js') ?>"></script>
+        <script src="<?= base_url('/public/js/index.js') ?>"></script>
     </div>
 </body>
 

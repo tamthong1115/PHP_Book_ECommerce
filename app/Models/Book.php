@@ -102,4 +102,22 @@ class Book extends Model
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function deleteBook($bookId)
+    {
+        // Delete book images
+        $sql = "DELETE FROM book_images WHERE book_id = :book_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['book_id' => $bookId]);
+
+        // Delete book categories
+        $sql = "DELETE FROM book_categories WHERE book_id = :book_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['book_id' => $bookId]);
+
+        // Delete the book
+        $sql = "DELETE FROM books WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['id' => $bookId]);
+    }
 }

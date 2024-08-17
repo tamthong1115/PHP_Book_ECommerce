@@ -35,6 +35,38 @@ modalSignUp.addEventListener("click", (e) => {
 authContainer.addEventListener("click", (e) => e.stopPropagation());
 
 document.addEventListener("DOMContentLoaded", function () {
+  const base_url = window.location.origin + "/PHP_Book_ECommerce";
+  document.getElementById("redirectUrl").value = window.location.href;
+
+  document
+    .querySelector("#signInForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(this);
+      fetch(this.action, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.type === "success") {
+            showMessage(data.type, data.message);
+            modalSignIn.close();
+            if (data.isAdmin) {
+              window.location.href = base_url + "/admin";
+            }
+          } else {
+            const messageDiv = document.getElementById("message");
+            messageDiv.textContent = data.message;
+            messageDiv.className = `message message-${data.type}`;
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+
   const accountContainer = document.querySelector(".header_account_container");
   const accountDropdown = document.getElementById("accountDropdown");
 
