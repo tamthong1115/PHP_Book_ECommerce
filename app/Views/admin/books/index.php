@@ -1,9 +1,16 @@
 <?php
 $title = "Books Admin";
 ob_start();
-?>
+?>  
+<style>
+    #starsforgrid {
+        display: flex;
+    }
+</style>
 <main>
-    <h1>Books Admin</h1>
+    <?php $books = $bookLiteratures; ?>
+    <?php include __DIR__ .  '/../../components/booksBanner.php'; ?>
+
 </main>
 <?php
 $content = ob_get_clean();

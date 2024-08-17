@@ -1,21 +1,24 @@
 /* Global Variables */
 :root {
-  --primary-color: #0066ff;
-  --primary-color-dark: #0157e0;
-  --secondary-color: #e3e6f3;
+  --primary-color: #088178;
+  --primary-color-hover: #16ada3;
+  --primary-color-dark: #00a6f3;
+  --secondary-color: #fff;
 
   --success-color: #28a745;
   --info-color: #17a2b8;
   --warning-color: #ffc107;
   --danger-color: #dc3545;
-
   --link-hover-color: #0066ff;
-
   --border-radius: 0.5rem;
+
+  --background-color: #f0f0f0;
 
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
+
+  --size-icon: 4rem;
 
   /* H element */
   --h1-font-size: 2.5rem;

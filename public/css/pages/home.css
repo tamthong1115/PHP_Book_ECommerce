@@ -1,0 +1,83 @@
+#mainBanner {
+  height: 90vh;
+  width: 100%;
+  background-size: cover;
+  display: flex;
+  /* padding: 0 80px; */
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: center;
+  background-position: center;
+}
+
+#mainBanner h1 {
+  color: var(--primary-color, #0066ff);
+}
+#mainBanner button {
+  background-color: transparent;
+  background-size: cover;
+  border: 0;
+  padding: 14px 80px 14px 65px;
+  width: 250px;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--primary-color, #0066ff);
+}
+
+#groupOfFeatures {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+/* Features */
+
+.feature {
+  text-align: center;
+  width: 180px;
+  padding: 25px 15px;
+  box-shadow: 10px 10px 50px rgba(70, 62, 221, 0.1);
+  justify-items: center;
+  border: 1px solid #cce7d0;
+  border-radius: 5px;
+  margin: 15px 0px;
+  transition: 0.3s ease;
+}
+
+.feature:hover {
+  box-shadow: 20px 20px 34px rgba(0, 0, 0, 0.3);
+}
+
+.feature img {
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.feature h6 {
+  padding: 10px 5px;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--primary-color, #0066ff);
+  background-color: #fddde4;
+  border-radius: 5px;
+  line-height: 1;
+  display: inline-block;
+}
+
+.feature:nth-child(2) h6 {
+  background-color: #cdebbc;
+}
+.feature:nth-child(3) h6 {
+  background-color: #d1e8f2;
+}
+.feature:nth-child(4) h6 {
+  background-color: #cdd4f8;
+}
+.feature:nth-child(5) h6 {
+  background-color: #f6dbf6;
+}
+.feature:nth-child(6) h6 {
+  background-color: #fff2e5;
+}

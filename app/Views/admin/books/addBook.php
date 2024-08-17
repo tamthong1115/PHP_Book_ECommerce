@@ -19,7 +19,8 @@ ob_start();
             <input type="number" id="stock" name="stock" placeholder="Số lượng" required>
         </div>
         <input type="text" id="author" name="author" placeholder="Tác giả" required>
-        <input type="text" id="publisher" name="publisher" placeholder="Nhà phát hành">
+        <input type="text" id="supplier" name="supplier" placeholder="Nhà cung cấp">
+        <input type="text" id="publisher" name="publisher" placeholder="Nhà xuất bản">
         <label for="language">Ngôn ngữ:</label>
         <select id="language" name="language" required>
             <option value="Việt Nam">Việt Nam</option>
@@ -32,10 +33,10 @@ ob_start();
             <input type="number" id="pages" name="pages" placeholder="Số trang" required>
             <input type="number" id="weight" name="weight" placeholder="Trọng lượng(g)">
         </div>
-         <select name="format" id="format">
+        <select name="format" id="format">
             <option value="Bìa mềm">Bìa mềm</option>
             <option value="Bìa cứng">Bìa cứng</option>
-         </select>
+        </select>
         <label for="categories">Thể loại:</label>
         <div id="categories">
             <?php
