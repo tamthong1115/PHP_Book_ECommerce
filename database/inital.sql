@@ -173,3 +173,4 @@ ALTER TABLE `reviews`
 ADD FOREIGN KEY (`book_id`) REFERENCES `books` (`id`);
 ALTER TABLE `discounts`
 ADD FOREIGN KEY (`order_id`) REFERENCES `order_details` (`id`);
+ALTER TABLE cart_item ADD UNIQUE KEY unique_cart_book (cart_id, book_id);

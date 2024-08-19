@@ -15,7 +15,7 @@ ob_start();
         <input type="file" id="images" name="images[]" accept="image/*" multiple required onchange="previewImages(event)">
         <div id="imagePreviews" style="margin-top: 10px; display:flex;flex-wrap: wrap;"></div>
         <div class="numberContainer">
-            <input type="number" step="0.01" id="price" name="price" placeholder="Giá" required>
+            <input type="number" id="price" name="price" placeholder="Giá" required>
             <input type="number" id="stock" name="stock" placeholder="Số lượng" required>
         </div>
         <input type="text" id="author" name="author" placeholder="Tác giả" required>

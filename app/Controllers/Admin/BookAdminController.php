@@ -20,7 +20,11 @@ class BookAdminController extends Controller
         foreach ($bookLiteratures as $key => $book) {
             $bookLiteratures[$key]['image'] = $bookModel->getFirstImageByBookId($book['id']);
         }
-        $this->render('admin/books/index', ['bookLiteratures' => $bookLiteratures]);
+        $newestBooks = $bookModel->getNewestBooks(8);
+        foreach ($newestBooks as $key => $book) {
+            $newestBooks[$key]['image'] = $bookModel->getFirstImageByBookId($book['id']);
+        }
+        $this->render('admin/books/index', ['bookLiteratures' => $bookLiteratures, 'newestBooks' => $newestBooks]);
     }
 
     public function add()
@@ -65,42 +69,39 @@ class BookAdminController extends Controller
     {
         $this->model->deleteBook($bookId);
         $this->redirect('/admin/books');
-
     }
 
     private function uploadImages($bookId, $images)
-{
-    $uploadDir = 'uploads/' . $bookId . '/';
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-
-    $imageData = [];
-    foreach ($images['name'] as $key => $name) {
-        $imageData[] = [
-            'name' => $name,
-            'tmp_name' => $images['tmp_name'][$key],
-        ];
-    }
-
-    // Sort the array by file name using natural sorting
-    usort($imageData, function($a, $b) {
-        return strnatcmp($a['name'], $b['name']);
-    });
-
-    print_r($imageData);
-
-    $imageNames = [];
-    foreach ($imageData as $image) {
-        $fileName = basename($image['name']);
-        $filePath = $uploadDir . $fileName;
-        if (move_uploaded_file($image['tmp_name'], $filePath)) { 
-            $imageNames[] = $fileName; // Store only the file name
+    {
+        $uploadDir = 'uploads/' . $bookId . '/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
         }
-    }
 
-    return $imageNames;
-}
+        $imageData = [];
+        foreach ($images['name'] as $key => $name) {
+            $imageData[] = [
+                'name' => $name,
+                'tmp_name' => $images['tmp_name'][$key],
+            ];
+        }
+
+        // Sort the array by file name using natural sorting
+        usort($imageData, function ($a, $b) {
+            return strnatcmp($a['name'], $b['name']);
+        });
+
+        $imageNames = [];
+        foreach ($imageData as $image) {
+            $fileName = basename($image['name']);
+            $filePath = $uploadDir . $fileName;
+            if (move_uploaded_file($image['tmp_name'], $filePath)) {
+                $imageNames[] = $fileName; // Store only the file name
+            }
+        }
+
+        return $imageNames;
+    }
 
 
     // get all categories

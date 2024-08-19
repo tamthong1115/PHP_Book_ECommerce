@@ -4,6 +4,7 @@ namespace Models;
 
 use Core\Model;
 use PDO;
+use Utils\Helpers;
 
 class Book extends Model
 {
@@ -115,9 +116,21 @@ class Book extends Model
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['book_id' => $bookId]);
 
+        // Delete cart items related to the book
+        $sql = "DELETE FROM cart_item WHERE book_id = :book_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['book_id' => $bookId]);
+
         // Delete the book
         $sql = "DELETE FROM books WHERE id = :id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute(['id' => $bookId]);
+
+        // Delete the folder in uploads
+        $uploadDir = 'uploads/' . $bookId;
+        if (is_dir($uploadDir)) {
+            $helpers = new Helpers();
+            $helpers->deleteDirectory($uploadDir);
+        }
     }
 }

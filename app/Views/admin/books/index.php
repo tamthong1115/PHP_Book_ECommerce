@@ -8,7 +8,7 @@ ob_start();
     }
 </style>
 <main>
-    <?php $books = $bookLiteratures; ?>
+    <?php $books = $newestBooks; ?>
     <?php $bannerTitle = "Books Admin"; ?>
     <?php include __DIR__ .  '/../../components/booksBanner.php'; ?>
 

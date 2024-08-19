@@ -11,9 +11,11 @@ use Utils\AuthUtil; ?>
         if (isset($books) && is_iterable($books)) : ?>
             <?php foreach ($books as $book) : ?>
                 <div class="pro">
-                    <a href="<?= base_url('/book/' . $book['id']) ?>">
-                        <img src="<?= base_url('/uploads/' . $book['id'] . '/' . $book['image']) ?>" alt="<?= htmlspecialchars($book['name']) ?>">
-                    </a>
+                    <form class="formToDetailBook" action="<?= base_url('/book/' . $book['id']) ?>" method="get">
+                        <button class="buttonImagePreview" type="submit">
+                            <img class="previewBookImg" src="<?= base_url('/uploads/' . $book['id'] . '/' . $book['image']) ?>" alt="<?= htmlspecialchars($book['name']) ?>" border="0">
+                        </button>
+                    </form>
                     <div class="description">
                         <span id="brandGrid"><?= htmlspecialchars($book['author']) ?></span>
                         <h5 id="T-styleGrid"><?= htmlspecialchars($book['name']) ?></h5>
@@ -26,17 +28,21 @@ use Utils\AuthUtil; ?>
                         </div>
                         <h5 id="priceGrid" class="price">$<?= htmlspecialchars($book['price']) ?></h5>
                         <span id="cartGrid" class="productCart">
-                            <a class="add-to-cart" data-book-id="<?= $book['id'] ?>">
-                                <img id="cart" src="<?= base_url('/public/img/header/cart-shopping-solid.svg') ?>" alt="">
-                            </a>
+                            <form class="formAddToCart" action="<?= base_url('/cart/add/' . $book['id']) ?>" method="POST">
+                                <button type="submit" class="add-to-cart" data-book-id="<?= $book['id'] ?>">
+                                    <img id="cart" src="<?= base_url('/public/img/header/cart-shopping-solid.svg') ?>" alt="">
+                                </button>
+                            </form>
                         </span>
 
-                        <?php if (AuthUtil::isAdmin()) : ?>
-                            <form action="<?= base_url('/admin/books/delete/' . $book['id']) ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?');">
+                    </div>
+                    <?php if (AuthUtil::isAdmin()) : ?>
+                        <div class="delete-book-container">
+                            <form class="delete-book-form" action="<?= base_url('/admin/books/delete/' . $book['id']) ?>" method="POST" onsubmit="return confirm('Are you sure you want to delete this book?');">
                                 <button type="submit">Delete</button>
                             </form>
-                        <?php endif; ?>
-                    </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         <?php else : ?>
@@ -44,34 +50,22 @@ use Utils\AuthUtil; ?>
         <?php endif; ?>
     </div>
 </section>
+
 <script>
-    document.querySelectorAll('.add-to-cart').forEach(function(button) {
-        button.addEventListener('click', function() {
-            const bookId = this.getAttribute('data-book-id');
+    const formAddToCart = document.querySelectorAll('.formAddToCart');
+    formAddToCart.forEach(form => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const bookId = form.querySelector('.add-to-cart').getAttribute('data-book-id');
             fetch('<?= base_url('/cart/add/') ?>' + bookId, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    credentials: 'include'
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('An error occurred while adding the book to the cart.');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.success) {
-                        alert('Book added to cart successfully!');
-                    } else {
-                        alert('Failed to add book to cart: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.log('Error:', error);
-                    alert('An error occurred while adding the book to the cart.');
-                });
+                method: 'POST',
+            }).then(response => {
+                if (response.ok) {
+                    alert('Added to cart successfully');
+                } else {
+                    alert('Failed to add to cart');
+                }
+            });
         });
     });
 </script>

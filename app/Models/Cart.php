@@ -34,11 +34,14 @@ class Cart extends Model
             }
 
             $sql = "INSERT INTO cart_item (cart_id, book_id, quantity, created_at) 
-                        VALUES (:cart_id, :book_id, :quantity, CURRENT_TIMESTAMP)
-                        ON DUPLICATE KEY UPDATE quantity = quantity + :quantity2";
-            $stmt = $this->pdo->prepare($sql);
+            VALUES (:cart_id, :book_id, :quantity, CURRENT_TIMESTAMP)
+            ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity)";
 
-            $stmt->execute(['cart_id' => $cartId, 'book_id' => $bookId, 'quantity' => $quantity, 'quantity2' => $quantity]);
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(':cart_id', $cartId);
+            $stmt->bindParam(':book_id', $bookId);
+            $stmt->bindParam(':quantity', $quantity);
+            $stmt->execute();
         } else {
             $this->addToCartCookie($bookId, $quantity);
         }

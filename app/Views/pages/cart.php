@@ -59,7 +59,7 @@ ob_start();
                                                 <a href="#" class="btn-subtract-qty">
                                                     <img src="<?= base_url('/public/img/cart/minus.svg') ?>" alt="">
                                                 </a>
-                                                <input class="qty-carts" type="text" maxlength="12" align="middle">
+                                                <input class="qty-carts" type="text" value="<?= $cartItem['quantity'] ?>" maxlength="12" align="middle">
                                                 <a href="#" class="btn-add-qty">
                                                     <img src="<?= base_url('/public/img/cart/plus.svg') ?>" alt="">
                                                 </a>
