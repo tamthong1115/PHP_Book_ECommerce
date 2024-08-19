@@ -1,4 +1,5 @@
 <?php
+
 namespace Core;
 
 class Controller
@@ -13,6 +14,7 @@ class Controller
 
     public function render($view, $data = [])
     {
+
         extract($data);
         require __DIR__ . '/../Views/' . $view . '.php';
     }
@@ -24,4 +26,3 @@ class Controller
         exit();
     }
 }
-

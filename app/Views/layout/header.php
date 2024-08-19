@@ -1,34 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Store</title>
-</head>
+use Utils\AuthUtil; ?>
 
-<body>
-    <header>
-        <div class="header__container">
+<header>
 
-            <a href="<?= base_url('/') ?>"><img src="<?= base_url('/public/icons/logo.svg') ?>" class="header__logo" alt="logo"></a>
+    <nav id="nav">
+        <a href="<?= base_url('/') ?>"><img id="logo" src="<?php echo base_url('/public/img/header/logo.svg') ?>" alt="Logo"></a>
 
+        <div id="slideMenu">
+            <ul id="navUl">
+                <li class="navLi" id="contact"><a class="aTag" href="contact.html">Contact</a></li>
+                <div class="header_account_container">
+                    <a class="aTag" href="#" id="accountLink">
+                        <div class="header_account">
+                            <img src="<?= base_url('/public/img/header/account.svg') ?>" alt="Account">
+                            <span><?= isset($_SESSION['username']) ? $_SESSION['username'] : 'Tài khoản'; ?></span>
+                        </div>
+                    </a>
+                    <div id="accountDropdown" class="dropdown-content">
+                        <?php if (AuthUtil::isLoggedIn()): ?>
+                            <div class="dropdown-container">
+                                <a href="<?= base_url('/profile') ?>">Trang cá nhân</a>
+                                <a href="<?= base_url('/logout') ?>">Đăng xuất</a>
+                            </div>
+                        <?php else: ?>
+                            <div class="signIn-dropdown">
+                                <button class="open-modal-signIn">Đăng nhập</button>
+                            </div>
+                            <div class="signUp-dropdown">
+                                <button class="open-modal-signUp">Đăng ký</button>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <li class="navLi" id="cart"><a class="aTag" href="<?= base_url('/cart') ?>"><img src="<?php echo base_url('/public/img/header/shopping-cart.svg') ?>" alt="Logo"></a></li>
 
-            <div class="header__search">
-                <form action="">
-                    <input type="text" placeholder="Search for books, authors, genres">
-                    <button type="submit">Tìm kiếm</button>
-                </form>
-            </div>
-
-            <div class="header__right">
-                <ul class="header__navbar">
-                    <li id="icon-header"><a href="<?= base_url('/about') ?>"><img src="<?= base_url('/public/icons/about.svg') ?>" title="Về chúng tôi"></a></li>
-                    <li id="icon-header"><a href="#"><img src="<?= base_url('/public/icons/contact.png') ?>" title="Liên hệ"></a></li>
-                    <li id="icon-header"><a class="header__cart" href="#"><img src="<?= base_url('/public/icons/cart.png') ?>" title="Giỏ hàng"></a></li>
-                    <li id="icon-header"><a href="<?= base_url('/sign-in') ?>"><img src="<?= base_url('/public/icons/sign-in-1.png') ?>" title="Đăng nhập"></a></li>
-                    <li id="icon-header"><a href="<?= base_url('/sign-up') ?>"><img src="<?= base_url('/public/icons/sign-out.png') ?>" title="Đăng kí"></a></li>
-                </ul>
-            </div>
+                <span id="close" class="material-symbols-outlined">close</span>
+            </ul>
         </div>
-    </header>
+        <section class="mobile">
+            <li class="navLi" id="cart"><a class="aTag" href="<?= base_url('/cart') ?>"><img src="<?php echo base_url('/public/img/header/shopping-cart.svg') ?>" alt="Logo"></a></li>
+
+            <span id="hamMenu" class="material-symbols-outlined">menu</span>
+        </section>
+    </nav>
+
+</header>

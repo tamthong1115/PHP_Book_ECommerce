@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Middleware;
-require_once 'app/utils/jwtUtil.php';
-use Utils\JwtUtil;
+
+
+use Utils\jwtUtil;
 
 class AuthMiddleware
 {
@@ -14,7 +16,7 @@ class AuthMiddleware
         }
 
         try {
-            $decoded = JwtUtil::decode($_COOKIE['auth_token']);
+            $decoded = jwtUtil::decode($_COOKIE['auth_token']);
             $_SESSION['user'] = [
                 'id' => $decoded->user_id,
                 'username' => $decoded->username,

@@ -68,7 +68,17 @@ body {
   width: 96%;
   margin: 0 auto;
   gap: 1.8rem;
-  grid-template-columns: 14rem auto 23rem;
+  grid-template-columns: 14rem auto;
+}
+
+.header {
+  padding: 1.4rem 0;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: auto 23rem;
+  gap: 1rem;
 }
 a {
   color: var(--color-dark);
@@ -139,8 +149,8 @@ aside .logo {
   gap: 0.8rem;
 }
 aside .logo img {
-  width: 2rem;
-  height: 2rem;
+  width: 6rem;
+  height: 6rem;
 }
 aside .close {
   display: none;
@@ -213,14 +223,14 @@ main {
 }
 
 /* START DATE INPUT */
-main .date {
+.date {
   display: inline-block;
   background: var(--color-light);
   border-radius: var(--border-radius-1);
   margin-top: 1rem;
   padding: 0.5rem 1.6rem;
 }
-main .date input[type="date"] {
+.date input[type="date"] {
   background: transparent;
   color: var(--color-dark);
 }
@@ -349,9 +359,9 @@ main .recent-orders a {
 /* END RECENT ORDERS */
 
 /* START RIGHT SECTION */
-.right {
+/* .right {
   margin-top: 1.4rem;
-}
+} */
 .right .top {
   display: flex;
   justify-content: end;
@@ -482,10 +492,14 @@ main .recent-orders a {
 
 /* START MEDIA QUERIES */
 /* TABLETS AND SMALL LAPTOPS */
-@media screen and (max-width: 1200px) {
+
+@media screen and (max-width: 1400px) {
   .container {
     width: 94%;
-    grid-template-columns: 7rem auto 23rem;
+    grid-template-columns: 7rem auto;
+  }
+  .content {
+    grid-template-columns: auto 23rem;
   }
   aside .logo h2 {
     display: none;
@@ -528,6 +542,9 @@ main .recent-orders a {
 @media screen and (max-width: 768px) {
   .container {
     width: 100%;
+    grid-template-columns: 1fr;
+  }
+  .content {
     grid-template-columns: 1fr;
   }
   aside {
@@ -617,5 +634,6 @@ main .recent-orders a {
   .right .top button span {
     font-size: 2rem;
   }
+
 }
 /* END MEDIA QUERIES */

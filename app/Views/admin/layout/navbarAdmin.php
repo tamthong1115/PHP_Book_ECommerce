@@ -1,10 +1,7 @@
-
-
 <aside>
     <div class="top">
         <div class="logo">
-            <img src="/PHP_Book_ECommerce/public/admin/images/logo.png" alt="Logo" />
-            <h2>EGA<span class="danger">TOR</span></h2>
+            <img src="/PHP_Book_ECommerce/public/admin/images/logo.svg" alt="Logo" />
         </div>
         <div class="close" id="close-btn">
             <span class="material-icons-sharp"> close </span>
@@ -45,7 +42,7 @@
             <span class="material-icons-sharp"> settings </span>
             <h3>Settings</h3>
         </a>
-        <a href="#">
+        <a href="<?php echo base_url('/admin/books/add-book') ?>">
             <span class="material-icons-sharp"> add </span>
             <h3>Add Product</h3>
         </a>

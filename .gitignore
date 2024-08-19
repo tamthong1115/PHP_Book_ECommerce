@@ -4,6 +4,6 @@
 *.swp
 .env
 local
-/vendor/
-/.idea/
+.idea/
 
+.vscode/

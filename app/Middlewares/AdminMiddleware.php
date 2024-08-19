@@ -2,9 +2,8 @@
 
 namespace App\Middleware;
 
-require_once 'app/utils/jwtUtil.php';
 
-use Utils\JwtUtil;
+use Utils\jwtUtil;
 
 class AdminMiddleware
 {
@@ -17,7 +16,7 @@ class AdminMiddleware
         }
 
         try {
-            $decoded = JwtUtil::decode($_COOKIE['auth_token']);
+            $decoded = jwtUtil::decode($_COOKIE['auth_token']);
             if (!$decoded->isAdmin) {
                 http_response_code(403);
                 echo "403 Forbidden";
