@@ -11,13 +11,30 @@ class User extends Model
     {
         return $this->getAll('users');
     }
-    
+
     public function createUser($data): bool
     {
-        $sql = "INSERT INTO users (avatar, first_name, last_name, username, email, password, birth_of_date, phone_number, address) 
-                VALUES (:avatar, :first_name, :last_name, :username, :email, :password, :birth_of_date, :phone_number, :address)";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute($data);
+        try {
+            $this->pdo->beginTransaction();
+
+            $sql = "INSERT INTO users (avatar, first_name, last_name, username, email, password, birth_of_date, phone_number, address) 
+                    VALUES (:avatar, :first_name, :last_name, :username, :email, :password, :birth_of_date, :phone_number, :address)";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($data);
+
+            $userId = $this->pdo->lastInsertId();
+
+            $cartSql = "INSERT INTO cart (user_id, created_at) VALUES (:user_id, CURRENT_TIMESTAMP)";
+            $cartStmt = $this->pdo->prepare($cartSql);
+            $cartStmt->execute(['user_id' => $userId]);
+
+            $this->pdo->commit();
+
+            return true;
+        } catch (\PDOException $e) {
+            $this->pdo->rollBack();
+            throw $e;
+        }
     }
 
 

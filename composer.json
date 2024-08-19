@@ -1,0 +1,17 @@
+{
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Core\\": "app/core/",
+      "Models\\": "app/Models/",
+      "Controllers\\": "app/Controllers/",
+      "Middlewares\\": "app/Middlewares/",
+      "Routes\\": "app/Routes/",
+      "Utils\\": "app/Utils/"
+    }
+  },
+  "require": {
+    "firebase/php-jwt": "^6.10",
+    "vlucas/phpdotenv": "^5.6"
+  }
+}
