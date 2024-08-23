@@ -10,8 +10,7 @@ ob_start();
             <div class="cart-books">
                 <div class="header-cart-item">
                     <div class="checkbox-all-product">
-                        <input id="checkbox-all-product" class="checkbox-add-cart" type="checkbox"
-                            onclick="cart.checkAllProducts()" />
+                        <input id="checkbox-all-product" class="checkbox-add-cart" type="checkbox" />
                     </div>
                     <div>
                         <span>Chọn tất cả(<?= htmlspecialchars($totalBooks) ?> sản phẩm)</span>
@@ -28,8 +27,8 @@ ob_start();
                         ): ?>
                             <div class="item-product-cart">
                                 <div class="checked-product-cart">
-                                    <input id="<?= 'checkbox-product-' . $cartItem['id'] ?>" class="checkbox-add-cart"
-                                        type="checkbox">
+                                    <input id="<?= 'checkbox-product-' . $cartItem['book_id'] ?>" class="checkbox-add-cart"
+                                        type="checkbox" name="cartItems[]" value="<?= $cartItem['book_id'] ?>">
                                 </div>
 
                                 <div class="img-product-cart">
@@ -55,9 +54,9 @@ ob_start();
                                     </div>
                                     <div class="number-product-cart">
                                         <div class="product-view-quantity-box">
-                                            <div class="product-view-quantity-box-block">
-                                                <a href="#" class="btn-subtract-qty">
-                                                    <img src="<?= base_url('/public/img/cart/minus.svg') ?>" alt="">
+                                            <div class="product-view-quantity-box-block" data-book-id="<?= $cartItem['book_id'] ?>"">
+                                                <a href=" #" class="btn-subtract-qty">
+                                                <img src="<?= base_url('/public/img/cart/minus.svg') ?>" alt="">
                                                 </a>
                                                 <input class="qty-carts" type="text" value="<?= $cartItem['quantity'] ?>" maxlength="12" align="middle">
                                                 <a href="#" class="btn-add-qty">
@@ -65,14 +64,15 @@ ob_start();
                                                 </a>
                                             </div>
                                         </div>
-                                        <div class="cart-price-total">
-                                            <span class="cart-price">44.100đ</span>
-                                        </div>
+                                        <span class="cartItem-price-total">
+                                            <?= htmlspecialchars($cartItem['quantity'] * $cartItem['price']) ?>đ
+                                        </span>
+
                                     </div>
                                 </div>
 
                                 <div class="btn-remove-cart">
-                                    <a href="<?= base_url("/cart/remove/{$cartItem['id']}") ?>">
+                                    <a href="#" id="remove-cart-item-<?= $cartItem['book_id'] ?>" data-id="<?= $cartItem['book_id'] ?>">
                                         <img src="<?= base_url('/public/img/cart/bin.svg') ?>" alt="">
                                     </a>
                                 </div>
@@ -84,17 +84,65 @@ ob_start();
                     <?php endif; ?>
                 </div>
             </div>
+
+            <div class="cart-right col-sm-4">
+
+                <div class="cart-promo">
+                    <div class="event-promo-title">
+                        <div class="event-promo-title-left">
+                            <span><img src="<?= base_url('/public/img/cart/discount.svg') ?>" alt=""></span>
+                            <span>Khuyến mãi</span>
+                        </div>
+
+                        <div class="event-promo-title-right" id="viewMoreDiscounts">
+                            <span>Xem thêm</span>
+                        </div>
+                    </div>
+
+                    <div class="event-promo-item">
+                        <div class="promo-item">
+                            <div>
+                                <div class="promo-name">Name</div>
+                                <div class="modal-promo-detail">Chi tiết</div>
+                            </div>
+
+                            <div class="promo-description"></div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="total-cart-right">
+                    <div class="cart-summary">
+                        <div class="total-cart-page">
+                            <div class="title-cart-page-left">Thành tiền</div>
+                            <div class="number-cart-page-right">
+                                <span id="total-price">0</span>
+                            </div>
+                        </div>
+                        <hr>
+
+
+                        <div class="total-cart-page title-final-total">
+                            <div class="title-cart-page-left">Tổng số tiền (gồm VAT)</div>
+                            <input type="hidden" name="totalPrice" id="hidden-total-price" value="0">
+                            <div class="number-cart-page-right">
+                                <span id="total-price-final" class="total-price-final">0</span>
+                            </div>
+                        </div>
+
+
+                        <div class="method-button-cart">
+                            <button type="submit" class="checkout-button">THANH TOÁN</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
     </form>
-
-    <div class="product-cart-right">
-
-        <div class="cart-summary">
-            <h2>Tổng cộng</h2>
-            <p><?= isset($totalPrice) ?>đ</p>
-            <button type="submit">Thanh toán</button>
-        </div>
-    </div>
 </div>
+
 
 
 

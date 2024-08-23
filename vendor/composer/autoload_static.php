@@ -7,9 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInitd751713988987e9331980363e24189ce
 {
     public static $files = array (
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -22,6 +23,8 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Symfony\\Component\\VarDumper\\' => 28,
+            'Stripe\\' => 7,
         ),
         'R' => 
         array (
@@ -30,6 +33,10 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         'P' => 
         array (
             'PhpOption\\' => 10,
+        ),
+        'N' => 
+        array (
+            'NguyenAry\\VietnamAddressAPI\\' => 28,
         ),
         'M' => 
         array (
@@ -52,6 +59,7 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         array (
             'Core\\' => 5,
             'Controllers\\' => 12,
+            'Cocur\\Slugify\\' => 14,
         ),
         'A' => 
         array (
@@ -76,6 +84,14 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
+        'Symfony\\Component\\VarDumper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/var-dumper',
+        ),
+        'Stripe\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
+        ),
         'Routes\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/Routes',
@@ -83,6 +99,10 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         'PhpOption\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
+        'NguyenAry\\VietnamAddressAPI\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nguyenary/vietnam-address-api/src',
         ),
         'Models\\' => 
         array (
@@ -112,9 +132,23 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         array (
             0 => __DIR__ . '/../..' . '/app/Controllers',
         ),
+        'Cocur\\Slugify\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cocur/slugify/src',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
+        ),
+    );
+
+    public static $prefixesPsr0 = array (
+        'P' => 
+        array (
+            'PHPExcel' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes',
+            ),
         ),
     );
 
@@ -132,6 +166,7 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitd751713988987e9331980363e24189ce::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitd751713988987e9331980363e24189ce::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitd751713988987e9331980363e24189ce::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitd751713988987e9331980363e24189ce::$classMap;
 
         }, null, ClassLoader::class);

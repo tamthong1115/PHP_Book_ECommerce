@@ -21,7 +21,7 @@ use Utils\AuthUtil; ?>
                     <div id="accountDropdown" class="dropdown-content">
                         <?php if (AuthUtil::isLoggedIn()): ?>
                             <div class="dropdown-container">
-                                <a href="<?= base_url('/profile') ?>">Trang cá nhân</a>
+                                <a href="<?= base_url('/users/profile') ?>">Trang cá nhân</a>
                                 <a href="<?= base_url('/logout') ?>">Đăng xuất</a>
                             </div>
                         <?php else: ?>

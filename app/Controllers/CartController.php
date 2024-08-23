@@ -12,11 +12,11 @@ class CartController extends Controller
         $cartModel = new Cart();
         $userId = $this->getUserId();
         $cartItems = $cartModel->getCartItems($userId);
-        $totalPrice = array_reduce($cartItems, function ($carry, $item) {
-            return $carry + $item['quantity'];
-        }, 0);
         $totalBooks = count($cartItems);
-        $this->render('pages/cart', ['cartItems' => $cartItems, 'totalPrice' => $totalPrice, 'totalBooks' => $totalBooks]);
+        $this->render('pages/cart', [
+            'cartItems' => $cartItems,
+            'totalBooks' => $totalBooks,
+        ]);
     }
 
     public function add($bookId)
@@ -28,13 +28,30 @@ class CartController extends Controller
         $cartModel->addToCart($bookId, 1, $userId);
     }
 
+    public function updateQuantity($bookId, $quantity)
+    {
+        $cartModel = new Cart();
+        $userId = $this->getUserId();
+        $availableStock = $cartModel->getBookStock($bookId);
+
+        if ($quantity <= $availableStock) {
+            $cartModel->updateCartQuantity($bookId, $quantity, $userId);
+            echo json_encode(['success' => true, 'message' => 'Quantity updated successfully']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Quantity exceeds available stock']);
+        }
+    }
 
     public function remove($bookId)
     {
         $cartModel = new Cart();
         $userId = $this->getUserId();
-        $cartModel->removeFromCart($bookId, $userId);
-        $this->redirect('/cart');
+        try {
+            $cartModel->removeFromCart($bookId, $userId);
+            echo json_encode(['success' => true, 'message' => 'Item removed successfully']);
+        } catch (\Exception $e) {
+            echo json_encode(['success' => false, 'message' => 'Failed to remove item']);
+        }
     }
 
     private function getUserId()

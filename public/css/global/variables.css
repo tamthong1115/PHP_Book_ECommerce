@@ -3,7 +3,10 @@
   --primary-color: #088178;
   --primary-color-hover: #16ada3;
   --primary-color-dark: #00a6f3;
-  --secondary-color: #fff;
+
+  --secondary-color: #2f80ed;
+
+  --background-color: #fff;
 
   --success-color: #28a745;
   --info-color: #17a2b8;
@@ -37,4 +40,3 @@
   --p-font-size: 1rem;
   --p-margin: 0.9rem 0 1.4rem 0;
 }
-

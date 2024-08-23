@@ -8,3 +8,5 @@ local
 
 .vscode/
 !.vscode/launch.json
+
+db_data/
