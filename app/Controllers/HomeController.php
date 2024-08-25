@@ -31,7 +31,7 @@ class HomeController extends Controller
     }
     public function contact()
     {
-    $this->render('pages/contact');
+        $this->render('pages/contact');
     }
 
     public function bookDetail($id)

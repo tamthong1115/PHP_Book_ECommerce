@@ -164,3 +164,8 @@ li button.active::after {
 .nav-icon{
   display: none;
 }
+
+#icon-header img{
+  width: 20px;
+   height: 20px;
+}

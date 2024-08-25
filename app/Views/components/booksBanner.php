@@ -10,6 +10,7 @@ use Utils\AuthUtil; ?>
         <?php
         if (isset($books) && is_iterable($books)) : ?>
             <?php foreach ($books as $book) : ?>
+                
                 <div class="pro">
                     <form class="formToDetailBook" action="<?= base_url('/book/' . $book['id']) ?>" method="get">
                         <button class="buttonImagePreview" type="submit">

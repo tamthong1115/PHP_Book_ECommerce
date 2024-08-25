@@ -9,7 +9,8 @@ use Utils\AuthUtil; ?>
 
         <div id="slideMenu">
             <ul id="navUl">
-                <li class="navLi" id="contact"><a class="aTag" href="contact.html">Contact</a></li>
+                <li class="navLi" id="about"><a class="aTag" href="<?php echo base_url('/about') ?>">About</a></li>
+                <li class="navLi" id="contact"><a class="aTag" href="<?php echo base_url('/contact') ?>">Contact</a></li>
                 <div class="header_account_container">
                     <a class="aTag" href="#" id="accountLink">
                         <div class="header_account">
