@@ -26,8 +26,16 @@ ob_start();
         <button class="read-more-btn">Xem thêm</button>
             </p>
             <h3>$<?= htmlspecialchars($book['price']) ?></h3>
-            <button type="button">Add to Cart</button>
-            <button type="button">Buy Now</button>
+            <form class="formAddToCart" action="<?= base_url('/cart/add/' . $book['id']) ?>" method="POST">
+                                <button type="submit" class="add-to-cart" data-book-id="<?= $book['id'] ?>">
+                                    Thêm vào giỏ hàng
+                                </button>
+                            </form>
+            <form class="formAddToCart" action="<?= base_url('/cart/add/' . $book['id']) ?>" method="POST">
+                                <button type="submit" class="add-to-cart" data-book-id="<?= $book['id'] ?>">
+                                    Mua ngay
+                                </button>
+                            </form>
         </div>
     </section>
     <script>
@@ -62,6 +70,22 @@ ob_start();
         }
     });
 });  
+const formAddToCart = document.querySelectorAll('.formAddToCart');
+    formAddToCart.forEach(form => {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const bookId = form.querySelector('.add-to-cart').getAttribute('data-book-id');
+            fetch('<?= base_url('/cart/add/') ?>' + bookId, {
+                method: 'POST',
+            }).then(response => {
+                if (response.ok) {
+                    alert('Added to cart successfully');
+                } else {
+                    alert('Failed to add to cart');
+                }
+            });
+        });
+    });
      </script>
 </main>
 <?php
