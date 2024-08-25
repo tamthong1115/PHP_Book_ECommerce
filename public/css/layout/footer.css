@@ -1,55 +1,112 @@
-.footer {
-  background-color: var(--secondary-color);
-  color: #333;
-  padding: 2rem 0;
-  font-family: Arial, sans-serif;
-}
-
-.footer__container {
+.footer-container{
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#newsLetter {
+  display: flex;
+  padding: 40px 60px;
   justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  border-radius: 5px;
+  flex-wrap: wrap;
+  align-items: center;
+  background-image: url("img/banner/b14.png");
+  background-position: 20% 30%;
+  background-color: #041e42;
 }
 
-.footer__about,
-.footer__links,
-.footer__contact {
-  flex: 1;
-  margin: 0 1rem;
+#newsLetter h2 {
+  color: #fff;
+  font-size: 28px;
+  padding-left: 4%;
+}
+#newsLetter h5 {
+  color: #6d6d6d;
+}
+#newsLetter h5 span {
+  color: #ff9412;
 }
 
-.footer__about h2,
-.footer__links h2,
-.footer__contact h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+.signUpinput {
+  display: flex;
 }
 
-.footer__about p,
-.footer__contact p {
-  font-size: 1rem;
-  line-height: 1.5;
+.signUpinput input {
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 4px;
+  width: 350px;
+  height: 3.125rem;
+  padding: 0 1.25em;
+  border: 1px solid transparent;
+  outline: none;
 }
 
-.footer__links ul {
-  list-style: none;
-  padding: 0;
+.signUpinput button {
+  margin-left: 0px;
+  background-color: #088178;
+  color: #fff;
+  margin: 0px;
+  white-space: nowrap;
 }
 
-.footer__links li {
-  margin-bottom: 0.5rem;
+/* Footer */
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  padding: 40px 60px;
+}
+.footer h5 {
+  color: #000;
+}
+.footer h5 {
+  margin-left: 0px;
+  margin-bottom: 10px;
 }
 
-.footer__links a {
-  color: #333;
+.footer .col {
+  display: flex;
+  flex-direction: column;
+  align-content: start;
+}
+.footer .col h4 {
+  margin-bottom: 20px;
+}
+
+.footer .col a {
   text-decoration: none;
-  transition: color 0.3s;
+  color: #222;
+  margin-bottom: 15px;
 }
 
-.footer__links a:hover {
-  color: #ff6347;
+.footer .Install .Dpp {
+  border: 2px solid #088178;
+  border-radius: 6px;
+}
+
+.footer .firstsection img {
+  margin-bottom: 30px;
+}
+
+.footer .sociallinks i {
+  margin: 5px;
+}
+
+.footer .sociallinks i:hover,
+.footer .col a:hover {
+  color: #088178;
+}
+
+.footer .copywrite {
+  width: 100%;
+  text-align: center;
 }
 .footer__about>#footer_about_link>a:hover{
   color: var(--link-hover-color);

@@ -8,14 +8,16 @@
   --info-color: #17a2b8;
   --warning-color: #ffc107;
   --danger-color: #dc3545;
-
   --link-hover-color: #0066ff;
-
   --border-radius: 0.5rem;
+
+  --background-color: #f0f0f0;
 
   --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
+
+  --size-icon: 4rem;
 
   /* H element */
   --h1-font-size: 2.5rem;
@@ -33,51 +35,5 @@
   /* p */
   --p-font-size: 1rem;
   --p-margin: 0.9rem 0 1.4rem 0;
-  ;
 }
 
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.prompt {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  width: 13rem;
-  border-radius: var(--border-radius);
-  font-family: var(--font-family);
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  transform: translateX(-50%);
-  z-index: 1000;
-  text-align: center;
-  animation: fadeIn 1s, fadeOut 5s 4s forwards;
-}
-
-.prompt-success {
-  background-color: var(--success-color);
-  color: white;
-}
-
-.prompt-error {
-  background-color: var(--danger-color);
-  color: white;
-}

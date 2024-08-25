@@ -15,9 +15,7 @@ class Model
 
     private function connectDB()
     {
-        $host = 'localhost';
-
-
+        $host = $_ENV['HOST_DB_NAME'] ?? 'localhost';
         $db   = 'book_ecommerce';
         $user = 'root';
         $pass = '';

@@ -2,11 +2,10 @@
 
 namespace App\Controllers;
 
-require_once 'app/utils/jwtUtil.php';
 
 use Core\Controller;
 use Models\User;
-use Utils\JwtUtil;
+use Utils\jwtUtil;
 
 class AuthController extends Controller
 {
@@ -17,6 +16,11 @@ class AuthController extends Controller
     }
     public function signIn()
     {
+        $redirectUrl = $_POST['redirectUrl'] ?? '/';
+
+        // Start output buffering to prevent premature output
+        ob_start();
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $identifier = $_POST['identifier'];
             $password = $_POST['password'];
@@ -37,19 +41,30 @@ class AuthController extends Controller
                 $jwt = JwtUtil::encode($payload);
 
                 setcookie('auth_token', $jwt, time() + (86400 * 30), "/");
-                
-                if ($user['isAdmin']) {
-                    $this->redirect('/admin');
-                } else {
-                    $this->redirect('/');
-                }
+
+                header('Content-Type: application/json');
+                echo json_encode(['type' => 'success', 'message' => 'Login successful!', 'isAdmin' => $user['isAdmin']]);
+
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['isAdmin'] = $user['isAdmin'];
+
+                // Ensure output buffer is flushed and the script is terminated
+                ob_end_flush();
+                exit();
             } else {
-                $this->render('auth/sign-in', ['error' => 'Invalid email/username or password']);
+                // Set the header to application/json
+                header('Content-Type: application/json');
+                echo json_encode(['type' => 'error', 'message' => 'Invalid credentials.']);
+                // Ensure output buffer is flushed and the script is terminated
+                ob_end_flush();
+                exit();
             }
         } else {
-            $this->render('auth/sign-in');
+            $this->redirect($redirectUrl);
         }
     }
+
     public function signUp()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -58,7 +73,7 @@ class AuthController extends Controller
             $confirmPassword = $_POST['confirm_password'];
 
             if ($password !== $confirmPassword) {
-                $this->render('auth/sign-up', ['error' => 'Passwords do not match']);
+                $this->render('layout/layout', ['error' => 'Passwords do not match']);
                 return;
             }
 
@@ -76,12 +91,19 @@ class AuthController extends Controller
 
             $userModel = new User();
             if ($userModel->createUser($data)) {
-                $this->render('auth/sign-up', ['success' => 'User created successfully']);
+                $this->render('layout/layout', ['success' => 'User created successfully']);
             } else {
-                $this->render('auth/sign-up', ['error' => 'Failed to create user']);
+                $this->render('layout/layout', ['error' => 'Failed to create user']);
             }
         } else {
-            $this->render('auth/sign-up');
+            $this->redirect('/');
         }
+    }
+
+    public function logout()
+    {
+        setcookie('auth_token', '', time() - 3600, "/");
+        session_destroy();
+        $this->redirect('/');
     }
 }
