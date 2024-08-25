@@ -1,27 +1,63 @@
-<footer class="footer">
-    <div class="footer__container">
-        <div class="footer__about">
-            <h2>About Us</h2>
-            <h2>Thành viên tham gia:</h2>
-            <span>Trương Tam Thông MSSV: 2251120387</span><br>
-            <span>Hoàng Gia Bảo MSSV: 2251120334</span>
-        </div>
-        <div class="footer__links">
-            <h2>Quick Links</h2>
-            <ul>
-                <li><a href="<?= base_url('/') ?>">Home</a></li>
-                <li><a href="<?= base_url('/shop') ?>">Shop</a></li>
-                <li><a href="<?= base_url('/contact') ?>">Contact</a></li>
-                <li><a href="<?= base_url('/about') ?>">About</a></li>
-            </ul>
-        </div>
-        <div class="footer__contact">
-            <h2>Contact Us</h2>
-            <p>Email: support@example.com</p>
-            <p>Phone: +123 456 7890</p>
-        </div>
-    </div>
+<div class="footer-container">
 
-</footer>
+    <section id="newsLetter">
+        <div>
+            <h2>Sighn Up For newsLetter</h2>
+            <h5>Get E-mail updates about our latest shop and <span> special offers</span></h5>
+        </div>
+        <div class="signUpinput">
+            <input placeholder="Your email address" type="email" name="user" id="signUp">
+            <button class="normal">signUp</button>
+        </div>
+    </section>
+
+    <footer class="footer section-p1">
+        <div class="firstsection">
+            <img src="<?= base_url('/public/img/header/logo.svg') ?>" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address</strong>2226 Wellington Rd, Toronto, ON Canada</p>
+            <p><strong>Phone:</strong>+01 2222 3653</p>
+            <p><strong>Hours:</strong>10:00 - 18:00 Mon - Fri</p>
+            <div class="sociallinks">
+                <h5>Follow Us</h5>
+                <i class="fa-brands fa-x-twitter"></i>
+                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-pinterest"></i>
+                <i class="fa-brands fa-whatsapp"></i>
+                <i class="fa-brands fa-instagram"></i>
+                <i class="fa-brands fa-youtube"></i>
+            </div>
+        </div>
+        <div class="about col">
+            <h4>About</h4>
+            <a href="#">About Us</a>
+            <a href="#">Delivery Information</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <div class="My Account col">
+            <h4>My Account</h4>
+            <a href="#">Sign In</a>
+            <a href="#">View Cart</a>
+            <a href="#">My Wishlist</a>
+            <a href="#">Track My Order</a>
+            <a href="#">Help</a>
+        </div>
+        <div class="Install App">
+            <h4>My Account</h4>
+            <p>From App Store or GooglePLay</p>
+            <img class="Dpp" src="<?= base_url('/public/img/pay/app.jpg') ?>" alt="">
+            <img class="Dpp" src="<?= base_url('/public/img/pay/play.jpg') ?>" alt="">
+            <p>Secured Payment Gateways</p>
+            <img src="img/pay/pay.png" alt="">
+        </div>
+        <div class="copywrite">
+            <p>© 2023, Rajsinh Chauhan - Ecommerce Template</p>
+        </div>
+    </footer>
+</div>
+
 </body>
+
 </html>

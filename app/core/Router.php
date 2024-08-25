@@ -40,34 +40,40 @@ class Router
         $method = $_SERVER['REQUEST_METHOD'];
         $uri = $this->stripBasePath($uri);
 
-        if (isset($this->routes[$method][$uri])) {
-            $route = $this->routes[$method][$uri];
-            $action = $route['action'];
-            $middleware = $route['middleware'];
+        foreach ($this->routes[$method] as $routeUri => $route) {
+            $pattern = preg_replace('/\{[^\}]+\}/', '([^/]+)', $routeUri);
+            if (preg_match('#^' . $pattern . '$#', $uri, $matches)) {
+                array_shift($matches); // Remove the full match
 
-            $request = $_SERVER;
-            $next = function ($request) use ($action) {
-                if (is_callable($action)) {
-                    call_user_func($action);
-                } elseif (is_array($action)) {
-                    $controller = new $action[0]();
-                    $method = $action[1];
-                    $controller->$method();
-                }
-            };
+                $action = $route['action'];
+                $middleware = $route['middleware'];
 
-            foreach (array_reverse($middleware) as $middlewareClass) {
-                $next = function ($request) use ($middlewareClass, $next) {
-                    $middlewareInstance = new $middlewareClass();
-                    return $middlewareInstance->handle($request, $next);
+                $request = $_SERVER;
+                $next = function ($request) use ($action, $matches) {
+                    if (is_callable($action)) {
+                        call_user_func_array($action, $matches);
+                    } elseif (is_array($action)) {
+                        $controller = new $action[0]();
+                        $method = $action[1];
+                        call_user_func_array([$controller, $method], $matches);
+                    }
                 };
-            }
 
-            $next($request);
-        } else {
-            http_response_code(404);
-            echo "404 Not Found";
+                foreach (array_reverse($middleware) as $middlewareClass) {
+                    $next = function ($request) use ($middlewareClass, $next) {
+                        $middlewareInstance = new $middlewareClass();
+                        return $middlewareInstance->handle($request, $next);
+                    };
+                }
+
+                $next($request);
+                return;
+            }
         }
+
+        // Handle 404 Not Found
+        header("HTTP/1.0 404 Not Found");
+        echo "404 Not Found";
     }
 
     private function stripBasePath($uri)
