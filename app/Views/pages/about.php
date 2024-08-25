@@ -9,7 +9,7 @@ ob_start();
         <p>Trang web này được xây dựng nhằm mục đích giúp người dùng mua sắm sách online một cách dễ dàng và thuận tiện.</p>
         
         <p>Với nhân lực hai người chúng tôi trân trọng giới thiệu các cuốn sách tiêu biểu mà chúng tôi biết và được bày bán ở các nhà sách lớn.
-            <img id="about-img" src="<?= base_url('/public/icons/about-img.png') ?>">
+            <img id="about-img" src="<?= base_url('/public/img/header/about-img.png') ?>">
         </p>
         
     </div>
