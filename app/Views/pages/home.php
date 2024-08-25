@@ -1,5 +1,5 @@
 <?php
-$title = "Home";
+$title = "Nhà sách TamThong";
 ob_start();
 ?>
 <link rel="stylesheet" href="<?= base_url('/public/css/pages/home.css') ?>">
@@ -34,6 +34,7 @@ ob_start();
 
 <!-- sách mới nhất -->
 <?php $books = $newestBooks; ?>
+<?php echo $books; ?>
 <?php $bannerTitle = "Sách Mới Nhất"; ?>
 <?php include __DIR__ .  '/../components/booksBanner.php'; ?>
 

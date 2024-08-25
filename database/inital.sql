@@ -11,69 +11,68 @@ CREATE TABLE `users` (
   `address` varchar(255),
   `isAdmin` boolean DEFAULT false,
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
-  `deleted_at` timestamp
+  `deleted_at` timestamp NULL DEFAULT NULL
 );
 CREATE TABLE `addresses` (
-  `id` integer PRIMARY KEY AUTO_INCREMENT,
-  `user_id` integer,
-  `address_line_1` varchar(255),
-  `address_line_2` varchar(255),
-  `city` varchar(255),
-  `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
-  `deleted_at` timestamp
-);
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `address_line_1` varchar(255) DEFAULT NULL,
+  `address_line_2` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 CREATE TABLE `categories` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(100),
   `description` varchar(255),
-  `parent_id` integer,
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
-  `deleted_at` timestamp
+  `deleted_at` timestamp NULL DEFAULT NULL
 );
 CREATE TABLE `book_categories` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
-  `book_id` integer NOT NULL,
+  `book_id` int(11) NOT NULL,
   `category_id` integer NOT NULL,
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP)
 );
 CREATE TABLE `books` (
-  `id` integer PRIMARY KEY AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `description` text,
-  `summary` varchar(255),
-  `price` decimal(10, 2) NOT NULL,
-  `stock` integer NOT NULL,
+  `description` text DEFAULT NULL,
+  `summary` varchar(255) DEFAULT NULL,
+  `price` int(11) NOT NULL,
+  `stock` int(11) NOT NULL,
   `author` varchar(100) NOT NULL,
-  `publisher` varchar(100),
-  `supplier` varchar(100),
-  `weight` decimal(10, 2),
+  `publisher` varchar(100) DEFAULT NULL,
+  `supplier` varchar(100) DEFAULT NULL,
+  `weight` decimal(10,2) DEFAULT NULL,
   `language` varchar(50) NOT NULL,
-  `publication_year` integer NOT NULL,
+  `publication_year` int(11) NOT NULL,
   `format` varchar(50) NOT NULL,
-  `pages` integer NOT NULL,
-  `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
-  `deleted_at` timestamp
-);
+  `pages` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 CREATE TABLE `book_images` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `book_id` integer,
   `image_url` varchar(255),
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
-  `deleted_at` timestamp
+  `deleted_at` timestamp NULL DEFAULT NULL
 );
 CREATE TABLE `wishlist` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `user_id` integer,
   `book_id` integer,
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
-  `deleted_at` timestamp
+  `deleted_at` timestamp NULL DEFAULT NULL
 );
 CREATE TABLE `cart` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `user_id` integer UNIQUE,
   `total` decimal(10, 2),
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
-  `updated_at` timestamp
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 CREATE TABLE `cart_item` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
@@ -81,7 +80,7 @@ CREATE TABLE `cart_item` (
   `book_id` integer,
   `quantity` integer,
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
-  `updated_at` timestamp
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 CREATE TABLE `order_details` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
@@ -92,8 +91,8 @@ CREATE TABLE `order_details` (
   `order_subtotal` decimal(10, 2) NOT NULL,
   `discounts_total` decimal(10, 2) DEFAULT 0,
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
-  `updated_at` timestamp,
-  `deleted_at` timestamp
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 );
 CREATE TABLE `order_item` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
@@ -102,7 +101,7 @@ CREATE TABLE `order_item` (
   `quantity` integer,
   `price` decimal(10, 2) NOT NULL,
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
-  `updated_at` timestamp
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 CREATE TABLE `payment_details` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
@@ -111,7 +110,7 @@ CREATE TABLE `payment_details` (
   `provider` varchar(255),
   `status` varchar(255),
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
-  `updated_at` timestamp
+  `updated_at` timestamp NULL DEFAULT NULL
 );
 CREATE TABLE `reviews` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
@@ -120,7 +119,7 @@ CREATE TABLE `reviews` (
   `rating` integer NOT NULL,
   `comment` text,
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
-  `deleted_at` timestamp
+  `deleted_at` timestamp NULL DEFAULT NULL
 );
 CREATE TABLE `discounts` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
@@ -129,7 +128,7 @@ CREATE TABLE `discounts` (
   `description` varchar(255),
   `expires_at` timestamp,
   `created_at` timestamp DEFAULT (CURRENT_TIMESTAMP),
-  `deleted_at` timestamp
+  `deleted_at` timestamp NULL DEFAULT NULL
 );
 CREATE TABLE `discount_books` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
@@ -174,3 +173,4 @@ ADD FOREIGN KEY (`book_id`) REFERENCES `books` (`id`);
 ALTER TABLE `discounts`
 ADD FOREIGN KEY (`order_id`) REFERENCES `order_details` (`id`);
 ALTER TABLE cart_item ADD UNIQUE KEY unique_cart_book (cart_id, book_id);
+ALTER TABLE categories ADD COLUMN parent_id INT NULL;

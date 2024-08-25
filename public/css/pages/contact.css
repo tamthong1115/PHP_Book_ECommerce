@@ -1,0 +1,16 @@
+#contact-details{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.details{
+    margin-left: 20px;
+    text-decoration: none;
+}
+#contact-header{
+    text-align: center;
+}
+#icon-header img{
+   width: 20px;
+    height: 20px;
+}

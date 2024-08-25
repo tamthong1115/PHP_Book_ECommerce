@@ -15,6 +15,7 @@ global $router;
 
 $router->get('/', [HomeController::class, 'index']);
 $router->get('/about', [HomeController::class, 'about']);
+$router->get('/contact', [HomeController::class, 'contact']);
 
 // /book?detail-id=1
 $router->get('/book/{id}', [HomeController::class, 'bookDetail']);

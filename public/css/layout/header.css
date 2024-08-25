@@ -152,3 +152,8 @@ li button.active::after {
 #logo {
   width: 6rem;
 }
+
+#icon-header img{
+  width: 20px;
+   height: 20px;
+}
