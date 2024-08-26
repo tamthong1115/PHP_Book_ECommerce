@@ -60,6 +60,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const messageDiv = document.getElementById("message");
             messageDiv.textContent = data.message;
             messageDiv.className = `message message-${data.type}`;
+            // reload
+            window.location.reload();
           }
         })
         .catch((error) => {
@@ -85,4 +87,139 @@ document.addEventListener("DOMContentLoaded", function () {
   accountDropdown.addEventListener("mouseout", function () {
     accountDropdown.style.display = "none";
   });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  function validateField(field, errorMessage, condition) {
+    const errorElement = field.nextElementSibling;
+    if (condition) {
+      errorElement.textContent = errorMessage;
+      errorElement.style.display = "block";
+      field.classList.add("user-invalid");
+      field.classList.remove("user-valid");
+      return false;
+    } else {
+      errorElement.style.display = "none";
+      field.classList.add("user-valid");
+      field.classList.remove("user-invalid");
+      return true;
+    }
+  }
+
+  function validateSignInForm() {
+    let isValid = true;
+
+    isValid &= validateField(
+      document.getElementById("identifier"),
+      "Identifier must be at least 5 characters long",
+      document.getElementById("identifier").value.trim().length < 5
+    );
+
+    isValid &= validateField(
+      document.getElementById("sign-in-password"),
+      "Password must be at least 6 characters long",
+      document.getElementById("sign-in-password").value.trim().length < 6
+    );
+
+    return isValid;
+  }
+
+  function validateSignUpForm() {
+    let isValid = true;
+
+    isValid &= validateField(
+      document.getElementById("username"),
+      "Username must be at least 5 characters long",
+      document.getElementById("username").value.trim().length < 5
+    );
+
+    isValid &= validateField(
+      document.getElementById("email"),
+      "Invalid email address",
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById("email").value)
+    );
+
+    isValid &= validateField(
+      document.getElementById("password"),
+      "Password must be at least 6 characters long",
+      document.getElementById("password").value.trim().length < 6
+    );
+
+    isValid &= validateField(
+      document.getElementById("confirm_password"),
+      "Passwords do not match",
+      document.getElementById("password").value !==
+        document.getElementById("confirm_password").value
+    );
+
+    return isValid;
+  }
+
+  document
+    .getElementById("signInForm")
+    .addEventListener("submit", function (event) {
+      if (!validateSignInForm()) {
+        event.preventDefault();
+      }
+    });
+
+  document
+    .getElementById("signUpForm")
+    .addEventListener("submit", function (event) {
+      if (!validateSignUpForm()) {
+        event.preventDefault();
+      }
+    });
+
+  document.getElementById("identifier").addEventListener("blur", function () {
+    validateField(
+      this,
+      "Identifier must be at least 5 characters long",
+      this.value.trim().length < 5
+    );
+  });
+
+  document
+    .getElementById("sign-in-password")
+    .addEventListener("blur", function () {
+      validateField(
+        this,
+        "Password must be at least 6 characters long",
+        this.value.trim().length < 6
+      );
+    });
+
+  document.getElementById("username").addEventListener("blur", function () {
+    validateField(
+      this,
+      "Username must be at least 5 characters long",
+      this.value.trim().length < 5
+    );
+  });
+
+  document.getElementById("email").addEventListener("blur", function () {
+    validateField(
+      this,
+      "Invalid email address",
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value)
+    );
+  });
+
+  document.getElementById("password").addEventListener("blur", function () {
+    validateField(
+      this,
+      "Password must be at least 6 characters long",
+      this.value.trim().length < 6
+    );
+  });
+
+  document
+    .getElementById("confirm_password")
+    .addEventListener("blur", function () {
+      validateField(
+        this,
+        "Passwords do not match",
+        this.value !== document.getElementById("password").value
+      );
+    });
 });

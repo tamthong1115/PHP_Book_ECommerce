@@ -34,7 +34,6 @@ ob_start();
 
 <!-- sách mới nhất -->
 <?php $books = $newestBooks; ?>
-<?php echo $books; ?>
 <?php $bannerTitle = "Sách Mới Nhất"; ?>
 <?php include __DIR__ .  '/../components/booksBanner.php'; ?>
 

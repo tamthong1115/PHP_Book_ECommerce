@@ -3,12 +3,12 @@
 use App\Controllers\HomeController;
 use App\Controllers\UserController;
 use App\Controllers\AuthController;
+use App\Controllers\OrderController;
 
 use App\Controllers\Admin\HomeAdminController;
 use App\Controllers\Admin\BookAdminController;
 use App\Controllers\CartController;
 use App\Middleware\AdminMiddleware;
-use App\Middleware\AuthMiddleware;
 
 
 global $router;
@@ -24,6 +24,13 @@ $router->get('/book/{id}', [HomeController::class, 'bookDetail']);
 $router->get('/cart', [CartController::class, 'index']);
 $router->post('/cart/add/{bookId}', [CartController::class, 'add']);
 $router->post('/cart/remove/{bookId}', [CartController::class, 'remove']);
+$router->post('/cart/updateQuantity/{bookId}/{quantity}', [CartController::class, 'updateQuantity']);
+$router->post('/payment/checkout', [CartController::class, 'checkout']);
+
+$router->get('/guest/checkout', [CartController::class, 'guestCheckoutForm']);
+
+$router->get('/payment/success/{orderId}', [OrderController::class, 'orderSuccess']);
+$router->get('/payment/fail/{orderId}', [OrderController::class, 'orderFail']);
 
 $router->get('/sign-in', [AuthController::class, 'signIn']);
 $router->post('/sign-in', [AuthController::class, 'signIn']);
@@ -32,9 +39,11 @@ $router->post('/sign-up', [AuthController::class, 'signUp']);
 $router->get('/logout', [AuthController::class, 'logout']);
 
 
-$router->get('/users', [UserController::class, 'index'], [AdminMiddleware::class]);
-$router->get('/users/create', [UserController::class, 'create'], [AdminMiddleware::class]);
-$router->post('/users/create', [UserController::class, 'create'], [AdminMiddleware::class]);
+// User profile routes
+$router->get('/users/profile', [UserController::class, 'profile']);
+$router->get('/users/updateProfile', [UserController::class, 'updateProfile']);
+$router->post('/users/updateProfile', [UserController::class, 'updateProfile']);
+
 
 $router->get('/admin', [HomeAdminController::class, 'index'], [AdminMiddleware::class]);
 $router->get('/admin/books', [BookAdminController::class, 'index'], [AdminMiddleware::class]);

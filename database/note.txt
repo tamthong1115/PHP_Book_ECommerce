@@ -1,0 +1,5 @@
+condition_type: An integer representing the type of condition:
+
+    1: Minimum order value.
+    2: Minimum quantity of items.
+    3: Specific product or category condition, etc.
