@@ -5,7 +5,8 @@ ob_start();
 <link rel="stylesheet" href="<?= base_url('/public/css/pages/cart.css') ?>">
 <div class="cart">
     <h1>Giỏ hàng</h1>
-    <form action="" class="form-cart">
+    <form id="cart-form" action="" method="POST" class="form-cart">
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrfToken) ?>">
         <div class="cart-ui-content">
             <div class="cart-books">
                 <div class="header-cart-item">
@@ -58,7 +59,7 @@ ob_start();
                                                 <a href=" #" class="btn-subtract-qty">
                                                 <img src="<?= base_url('/public/img/cart/minus.svg') ?>" alt="">
                                                 </a>
-                                                <input class="qty-carts" type="text" value="<?= $cartItem['quantity'] ?>" maxlength="12" align="middle">
+                                                <input name="quantity-book" class="qty-carts" type="text" value="<?= $cartItem['quantity'] ?>" maxlength="12" align="middle">
                                                 <a href="#" class="btn-add-qty">
                                                     <img src="<?= base_url('/public/img/cart/plus.svg') ?>" alt="">
                                                 </a>

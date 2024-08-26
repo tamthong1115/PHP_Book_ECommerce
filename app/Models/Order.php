@@ -47,4 +47,13 @@ class Order extends Model
             ':id' => $orderId
         ]);
     }
+
+    public function updateOrderStatus($orderId, $status)
+    {
+        $stmt = $this->pdo->prepare("UPDATE order_details SET status = :status WHERE id = :id");
+        $stmt->execute([
+            ':status' => $status,
+            ':id' => $orderId
+        ]);
+    }
 }

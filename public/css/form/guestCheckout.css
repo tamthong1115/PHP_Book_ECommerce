@@ -1,0 +1,59 @@
+.guest-order-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.guest-order-form {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.guest-order-form input,
+.guest-order-form select {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.guest-order-form input::placeholder {
+  color: #999;
+}
+
+.guest-order-form button {
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0066ff;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.guest-order-form button:hover {
+  background-color: #0056d2;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: -10px;
+  display: none;
+  font-family: "Poppins", sans-serif;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

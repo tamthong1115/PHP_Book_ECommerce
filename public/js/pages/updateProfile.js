@@ -18,6 +18,59 @@ function renderCity(data) {
     citis.options[citis.options.length] = new Option(x.Name, x.Id);
   }
 
+  // Set the selected province if it has a value
+  if (cityInput.value) {
+    const selectedCity = data.find((city) => city.Name === cityInput.value);
+    if (selectedCity) {
+      citis.value = selectedCity.Id;
+      for (const district of selectedCity.Districts) {
+        const option = new Option(district.Name, district.Id);
+        if (district.Name === districtInput.value) {
+          option.selected = true;
+        }
+        districts.options[districts.options.length] = option;
+      }
+    }
+  }
+  
+  // Set the selected district if it has a value
+  if (districtInput.value) {
+    const selectedCity = data.find((city) => city.Name === cityInput.value);
+    if (selectedCity) {
+      const selectedDistrict = selectedCity.Districts.find(
+        (district) => district.Name === districtInput.value
+      );
+      if (selectedDistrict) {
+        districts.value = selectedDistrict.Id;
+        for (const ward of selectedDistrict.Wards) {
+          const option = new Option(ward.Name, ward.Id);
+          if (ward.Name === wardInput.value) {
+            option.selected = true;
+          }
+          wards.options[wards.options.length] = option;
+        }
+      }
+    }
+  }
+  
+  // Set the selected ward if it has a value
+  if (wardInput.value) {
+    const selectedCity = data.find((city) => city.Name === cityInput.value);
+    if (selectedCity) {
+      const selectedDistrict = selectedCity.Districts.find(
+        (district) => district.Name === districtInput.value
+      );
+      if (selectedDistrict) {
+        const selectedWard = selectedDistrict.Wards.find(
+          (ward) => ward.Name === wardInput.value
+        );
+        if (selectedWard) {
+          wards.value = selectedWard.Id;
+        }
+      }
+    }
+  }
+
   citis.onchange = function () {
     districts.length = 1;
     wards.length = 1;
@@ -32,6 +85,8 @@ function renderCity(data) {
       }
     }
   };
+
+  
   districts.onchange = function () {
     wards.length = 1;
     if (this.value != "") {

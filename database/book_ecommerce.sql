@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Aug 22, 2024 at 12:38 PM
+-- Generation Time: Aug 25, 2024 at 07:05 PM
 -- Server version: 10.4.32-MariaDB-1:10.4.32+maria~ubu2004
 -- PHP Version: 8.2.8
 
@@ -29,15 +29,16 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `addresses` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `address_line_1` varchar(255) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `address_line_1` varchar(255) DEFAULT NULL,
   `address_line_2` varchar(255) DEFAULT NULL,
   `ward` varchar(100) DEFAULT NULL,
+  `province` varchar(100) DEFAULT NULL,
   `district` varchar(100) DEFAULT NULL,
-  `city` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `guest_orders_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -48,7 +49,7 @@ CREATE TABLE `addresses` (
 CREATE TABLE `books` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `description` text DEFAULT NULL,
+  `description` mediumtext DEFAULT NULL,
   `summary` varchar(255) DEFAULT NULL,
   `price` int(11) NOT NULL,
   `stock` int(11) NOT NULL,
@@ -62,7 +63,7 @@ CREATE TABLE `books` (
   `pages` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -75,7 +76,7 @@ CREATE TABLE `book_categories` (
   `book_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -89,7 +90,7 @@ CREATE TABLE `book_images` (
   `image_url` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -103,7 +104,7 @@ CREATE TABLE `cart` (
   `total` decimal(10,2) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -118,7 +119,7 @@ CREATE TABLE `cart_item` (
   `quantity` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -133,7 +134,7 @@ CREATE TABLE `categories` (
   `parent_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -143,13 +144,13 @@ CREATE TABLE `categories` (
 
 CREATE TABLE `discounts` (
   `id` int(11) NOT NULL,
-  `order_id` int(11) DEFAULT NULL,
+  `order_id` char(36) DEFAULT NULL,
   `discount_amount` decimal(10,2) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `expires_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -162,7 +163,7 @@ CREATE TABLE `discount_books` (
   `discount_id` int(11) NOT NULL,
   `book_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -172,7 +173,6 @@ CREATE TABLE `discount_books` (
 
 CREATE TABLE `global_discounts` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
   `discount_code` varchar(50) NOT NULL,
   `discount_amount` decimal(10,2) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
@@ -181,8 +181,24 @@ CREATE TABLE `global_discounts` (
   `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `condition_type` int(11) DEFAULT NULL,
   `condition_value` decimal(10,2) DEFAULT NULL,
-  `max_discount_amount` decimal(10,2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `max_discount_amount` decimal(10,2) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `guest_orders`
+--
+
+CREATE TABLE `guest_orders` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `order_id` varchar(36) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -191,9 +207,8 @@ CREATE TABLE `global_discounts` (
 --
 
 CREATE TABLE `order_details` (
-  `id` int(11) NOT NULL,
+  `id` char(36) NOT NULL DEFAULT uuid(),
   `user_id` int(11) DEFAULT NULL,
-  `payment_id` int(11) DEFAULT NULL,
   `total` decimal(10,2) DEFAULT NULL,
   `status` varchar(50) NOT NULL,
   `order_subtotal` decimal(10,2) NOT NULL,
@@ -201,8 +216,9 @@ CREATE TABLE `order_details` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `global_discount_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `global_discount_id` int(11) DEFAULT NULL,
+  `payment_intent_id` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -212,29 +228,13 @@ CREATE TABLE `order_details` (
 
 CREATE TABLE `order_item` (
   `id` int(11) NOT NULL,
-  `order_id` int(11) DEFAULT NULL,
+  `order_id` char(36) DEFAULT NULL,
   `book_id` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `price` decimal(10,2) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `payment_details`
---
-
-CREATE TABLE `payment_details` (
-  `id` int(11) NOT NULL,
-  `order_id` int(11) DEFAULT NULL,
-  `amount` decimal(10,2) DEFAULT NULL,
-  `provider` varchar(255) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -247,10 +247,10 @@ CREATE TABLE `reviews` (
   `user_id` int(11) DEFAULT NULL,
   `book_id` int(11) DEFAULT NULL,
   `rating` int(11) NOT NULL,
-  `comment` text DEFAULT NULL,
+  `comment` mediumtext DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -271,7 +271,7 @@ CREATE TABLE `users` (
   `isAdmin` tinyint(1) DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -285,7 +285,7 @@ CREATE TABLE `wishlist` (
   `book_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -296,7 +296,8 @@ CREATE TABLE `wishlist` (
 --
 ALTER TABLE `addresses`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `guest_orders_id` (`guest_orders_id`);
 
 --
 -- Indexes for table `books`
@@ -363,12 +364,18 @@ ALTER TABLE `global_discounts`
   ADD UNIQUE KEY `discount_code` (`discount_code`);
 
 --
+-- Indexes for table `guest_orders`
+--
+ALTER TABLE `guest_orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
 -- Indexes for table `order_details`
 --
 ALTER TABLE `order_details`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `payment_id` (`payment_id`),
   ADD KEY `global_discount_id` (`global_discount_id`);
 
 --
@@ -378,13 +385,6 @@ ALTER TABLE `order_item`
   ADD PRIMARY KEY (`id`),
   ADD KEY `order_id` (`order_id`),
   ADD KEY `book_id` (`book_id`);
-
---
--- Indexes for table `payment_details`
---
-ALTER TABLE `payment_details`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `order_id` (`order_id`);
 
 --
 -- Indexes for table `reviews`
@@ -475,21 +475,15 @@ ALTER TABLE `global_discounts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `order_details`
+-- AUTO_INCREMENT for table `guest_orders`
 --
-ALTER TABLE `order_details`
+ALTER TABLE `guest_orders`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `payment_details`
---
-ALTER TABLE `payment_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -518,7 +512,8 @@ ALTER TABLE `wishlist`
 -- Constraints for table `addresses`
 --
 ALTER TABLE `addresses`
-  ADD CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `addresses_ibfk_2` FOREIGN KEY (`guest_orders_id`) REFERENCES `guest_orders` (`id`);
 
 --
 -- Constraints for table `book_categories`
@@ -560,11 +555,16 @@ ALTER TABLE `discount_books`
   ADD CONSTRAINT `discount_books_ibfk_2` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`);
 
 --
+-- Constraints for table `guest_orders`
+--
+ALTER TABLE `guest_orders`
+  ADD CONSTRAINT `guest_orders_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order_details` (`id`);
+
+--
 -- Constraints for table `order_details`
 --
 ALTER TABLE `order_details`
   ADD CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `order_details_ibfk_2` FOREIGN KEY (`payment_id`) REFERENCES `payment_details` (`id`),
   ADD CONSTRAINT `order_details_ibfk_3` FOREIGN KEY (`global_discount_id`) REFERENCES `global_discounts` (`id`);
 
 --
@@ -573,12 +573,6 @@ ALTER TABLE `order_details`
 ALTER TABLE `order_item`
   ADD CONSTRAINT `order_item_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order_details` (`id`),
   ADD CONSTRAINT `order_item_ibfk_2` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`);
-
---
--- Constraints for table `payment_details`
---
-ALTER TABLE `payment_details`
-  ADD CONSTRAINT `payment_details_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order_details` (`id`);
 
 --
 -- Constraints for table `reviews`

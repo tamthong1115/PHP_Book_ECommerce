@@ -7,43 +7,56 @@ ob_start();
 <div class="update-profile-container">
     <h1>Update Profile</h1>
     <form action="<?= base_url('/users/updateProfile') ?>" method="POST" class="update-profile-form">
-        <label for="avatar">Avatar URL:</label>
-        <input type="text" id="avatar" name="avatar" value="<?= htmlspecialchars($user['avatar'] ?? '') ?>">
+        <label for="update_avatar">Avatar URL:</label>
+        <input type="text" id="update_avatar" name="update_avatar" value="<?= htmlspecialchars($user['avatar'] ?? '') ?>">
 
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" value="<?= htmlspecialchars($user['first_name'] ?? '') ?>">
+        <label for="update_first_name">First Name:</label>
+        <input type="text" id="update_first_name" name="update_first_name" value="<?= htmlspecialchars($user['first_name'] ?? '') ?>">
 
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" value="<?= htmlspecialchars($user['last_name'] ?? '') ?>">
+        <label for="update_last_name">Last Name:</label>
+        <input type="text" id="update_last_name" name="update_last_name" value="<?= htmlspecialchars($user['last_name'] ?? '') ?>">
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<?= htmlspecialchars($user['email'] ?? '') ?>">
+        <label for="update_email">Email:</label>
+        <input type="email" id="update_email" name="update_email" value="<?= htmlspecialchars($user['email'] ?? '') ?>">
 
-        <label for="phone_number">Phone Number:</label>
-        <input type="text" id="phone_number" name="phone_number" value="<?= htmlspecialchars($user['phone_number'] ?? '') ?>">
+        <label for="update_phone_number">Phone Number:</label>
+        <input type="text" id="update_phone_number" name="update_phone_number" value="<?= htmlspecialchars($user['phone_number'] ?? '') ?>">
 
-        <label for="birth_of_date">Birth Date:</label>
-        <input type="date" id="birth_of_date" name="birth_of_date" value="<?= htmlspecialchars($user['birth_of_date'] ?? '') ?>">
+        <label for="update_birth_of_date">Birth Date:</label>
+        <input type="date" id="update_birth_of_date" name="update_birth_of_date" value="<?= htmlspecialchars($user['birth_of_date'] ?? '') ?>">
 
-        <label for="address_line_1">Address Line 1:</label>
-        <input type="text" id="address_line_1" name="address_line_1" value="<?= htmlspecialchars($user['address_line_1'] ?? '') ?>">
+        <label for="update_address_line_1">Address Line 1:</label>
+        <input type="text" id="update_address_line_1" name="update_address_line_1" value="<?= htmlspecialchars($user['address_line_1'] ?? '') ?>">
 
-        <label for="address_line_2">Address Line 2:</label>
-        <input type="text" id="address_line_2" name="address_line_2" value="<?= htmlspecialchars($user['address_line_2'] ?? '') ?>">
+        <label for="update_address_line_2">Address Line 2:</label>
+        <input type="text" id="update_address_line_2" name="update_address_line_2" value="<?= htmlspecialchars($user['address_line_2'] ?? '') ?>">
 
-        <label for="ward">Ward:</label>
-        <input type="text" id="ward" name="ward" value="<?= htmlspecialchars($user['ward'] ?? '') ?>">
+        <label for="update_province">Province:</label>
+        <input type="text" id="input_update_province" name="update_province" value="<?= htmlspecialchars($user['province'] ?? '') ?>" hidden>
 
-        <label for="district">District:</label>
-        <input type="text" id="district" name="district" value="<?= htmlspecialchars($user['district'] ?? '') ?>">
+        <select class="form-select" id="update_province">
+            <option value="" <?php isset($user['province']) ? '' : 'selected'; ?>>Chọn tỉnh thành</option>
+        </select>
 
-        <label for="city">City:</label>
-        <input type="text" id="city" name="city" value="<?= htmlspecialchars($user['city'] ?? '') ?>">
 
-        <button type="submit">Submit</button>
+        <label for="update_district">District:</label>
+        <input type="text" id="input_update_district" name="update_district" value="<?= htmlspecialchars($user['district'] ?? '') ?>" hidden>
+        <select class="form-select" id="update_district">
+            <option value="" <?php isset($user['district']) ? '' : 'selected'; ?> >Chọn quận huyện</option>
+        </select>
+
+        <label for="update_ward">Ward:</label>
+        <input type="text" id="input_update_ward" name="update_ward" value="<?= htmlspecialchars($user['ward'] ?? '') ?>" hidden>
+        <select class="form-select" id="update_ward">
+            <option value="" <?php isset($user['ward']) ? '' : 'selected'; ?> >Chọn phường xã</option>
+        </select>
+
+
+        <button type="submit">Update Profile</button>
     </form>
 </div>
 
+<script src="<?= base_url('/public/js/pages/updateProfile.js') ?>"></script>
 
 <?php
 $content = ob_get_clean();

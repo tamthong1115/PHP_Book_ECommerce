@@ -17,9 +17,9 @@ ob_start();
             $addressParts = array_filter([
                 $user['address_line_1'] ?? '',
                 $user['address_line_2'] ?? '',
+                $user['province'] ?? '',
                 $user['ward'] ?? '',
-                $user['district'] ?? '',
-                $user['city'] ?? ''
+                $user['district'] ?? ''
             ]);
             echo htmlspecialchars(implode(', ', $addressParts) ?: 'Add your address');
             ?>
