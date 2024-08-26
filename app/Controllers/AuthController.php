@@ -6,6 +6,7 @@ namespace App\Controllers;
 use Core\Controller;
 use Models\User;
 use Utils\jwtUtil;
+use Utils\Csrf;
 
 class AuthController extends Controller
 {
@@ -23,7 +24,7 @@ class AuthController extends Controller
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $identifier = $_POST['identifier'];
-            $password = $_POST['password'];
+            $password = $_POST['sign-in-password'];
 
             // Check if the identifier is an email or username
             if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
@@ -39,6 +40,8 @@ class AuthController extends Controller
                     'isAdmin' => $user['isAdmin']
                 ];
                 $jwt = JwtUtil::encode($payload);
+
+                Csrf::generateToken();
 
                 setcookie('auth_token', $jwt, time() + (86400 * 30), "/");
 

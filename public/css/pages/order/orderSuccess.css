@@ -1,0 +1,45 @@
+
+
+.order-success-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.order-success-message {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-success-message h1 {
+  color: #28a745;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.order-success-message p {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.order-success-message .btn {
+  display: inline-block;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0066ff;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.order-success-message .btn:hover {
+  background-color: #0056d2;
+}

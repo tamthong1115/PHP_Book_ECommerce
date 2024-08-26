@@ -6,5 +6,5 @@
 local
 .idea/
 
-.vscode/
-!.vscode/launch.json
+vendor/
+db_data/
