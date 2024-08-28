@@ -16,16 +16,7 @@ ob_start();
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
-        </div>
-        <div class="book-info">
-            <h1><?= htmlspecialchars($book['name']) ?></h1>
-            <h2>Sáng tác bởi: <?= htmlspecialchars($book['author']) ?></h2>
-            <p class="description">
-                <?= substr($book['description'], 0, 1000) ?>...
-                <span class="more-text" style="display: none;"><?= substr($book['description'], 100) ?></span>
-                <button class="read-more-btn">Xem thêm</button>
-            </p>
-            <h3>$<?= htmlspecialchars($book['price']) ?></h3>
+            <h3 id="price-in-detail">$<?= htmlspecialchars($book['price']) ?></h3>
             <form class="formAddToCart" action="<?= base_url('/cart/add/' . $book['id']) ?>" method="POST">
                 <button type="submit" class="add-to-cart" data-book-id="<?= $book['id'] ?>">
                     Thêm vào giỏ hàng
@@ -36,6 +27,16 @@ ob_start();
                     Mua ngay
                 </button>
             </form>
+        </div>
+        <div class="book-info">
+            <h1><?= htmlspecialchars($book['name']) ?></h1>
+            <h2>Sáng tác bởi: <?= htmlspecialchars($book['author']) ?></h2>
+            <p class="description">
+                <?= substr($book['description'], 0, 1000) ?>...
+                <span class="more-text" style="display: none;"><?= substr($book['description'], 100) ?></span>
+                <button class="read-more-btn">Xem thêm</button>
+            </p>
+
         </div>
     </section>
     <script>

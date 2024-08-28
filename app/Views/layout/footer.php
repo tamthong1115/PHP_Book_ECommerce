@@ -50,7 +50,7 @@
             <img class="Dpp" src="<?= base_url('/public/img/pay/app.jpg') ?>" alt="">
             <img class="Dpp" src="<?= base_url('/public/img/pay/play.jpg') ?>" alt="">
             <p>Secured Payment Gateways</p>
-            <img src="img/pay/pay.png" alt="">
+            <img src="<?= base_url('/public/img/pay/pay.png') ?>" alt="">
         </div>
         <div class="copywrite">
             <p>© 2023, Rajsinh Chauhan - Ecommerce Template</p>

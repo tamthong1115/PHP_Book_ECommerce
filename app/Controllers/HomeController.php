@@ -34,6 +34,22 @@ class HomeController extends Controller
         $this->render('pages/contact');
     }
 
+    public function activepage()
+    { 
+        $this->render('pages/activepage');
+    }
+    public function forgot_password()
+    { 
+        $this->render('pages/forgotpassword');
+    }
+    public function resetpassword()
+    { 
+        $this->render('pages/resetpassword');
+    }
+    public function sendpasswordreset()
+    { 
+        $this->render('pages/sendpasswordreset');
+    }
     public function bookDetail($id)
     {
         $bookModel = new Book();

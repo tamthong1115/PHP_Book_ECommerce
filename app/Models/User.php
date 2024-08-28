@@ -17,8 +17,15 @@ class User extends Model
         try {
             $this->pdo->beginTransaction();
 
-            $sql = "INSERT INTO users (avatar, first_name, last_name, username, email, password, birth_of_date, phone_number) 
-                    VALUES (:avatar, :first_name, :last_name, :username, :email, :password, :birth_of_date, :phone_number)";
+            $existingUser = $this->findByEmailOrUsername($data['email'], $data['username']);
+            if ($existingUser) {
+            throw new \Exception('Email hoặc username đã tồn tại');
+            }
+
+            
+
+            $sql = "INSERT INTO users (avatar, first_name, last_name, username, email, password, birth_of_date, phone_number,account_activation_hash) 
+                    VALUES (:avatar, :first_name, :last_name, :username, :email, :password, :birth_of_date, :phone_number, :account_activation_hash)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
                 'avatar' => $data['avatar'],
@@ -28,8 +35,10 @@ class User extends Model
                 'email' => $data['email'],
                 'password' => $data['password'],
                 'birth_of_date' => $data['birth_of_date'],
-                'phone_number' => $data['phone_number']
+                'phone_number' => $data['phone_number'],
+                'account_activation_hash' => $data['account_activation_hash']
             ]);
+            
 
             $userId = $this->pdo->lastInsertId();
 
@@ -41,8 +50,23 @@ class User extends Model
             return true;
         } catch (\PDOException $e) {
             $this->pdo->rollBack();
-            throw $e;
+            throw $e;}
         }
+
+    
+        public function findByActivationHash($hash)
+    {
+        $sql = "SELECT * FROM users WHERE account_activation_hash = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$hash]);
+        return $stmt->fetch();
+    }
+
+    public function activateUser($userId)
+    {
+        $sql = "UPDATE users SET account_activation_hash = NULL WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$userId]);
     }
 
     public function getUserById($id)
@@ -119,5 +143,51 @@ class User extends Model
         $stmt->bindParam(':username', $username);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function findByEmailOrUsername($email, $username)
+{
+    $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = ? OR username = ?");
+    $stmt->execute([$email, $username]);
+    return $stmt->fetch();
+}
+
+public function setPasswordResetToken($email) {
+    $token = bin2hex(random_bytes(16));
+    $token_hash = hash("sha256", $token);
+    $expiry = date("Y-m-d H:i:s", time() + 60 * 30);
+
+    $sql = "UPDATE users
+            SET reset_token_hash = :token_hash,
+                reset_token_expires_at = :expiry
+            WHERE email = :email";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindParam(':token_hash', $token_hash);
+    $stmt->bindParam(':expiry', $expiry);
+    $stmt->bindParam(':email', $email);
+
+    
+    return $stmt->execute();
+} 
+public function getPasswordResetToken($email) {
+    $sql = "SELECT reset_token_hash FROM users WHERE email = :email";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $user ? $user['reset_token_hash'] : null;
+}
+public function findByResetTokenHash($token_hash)
+    {
+        $sql = "SELECT * FROM users WHERE reset_token_hash = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$token_hash]);
+        return $stmt->fetch();
+    }
+
+    public function updatePassword($user_id, $password_hash)
+    {
+        $sql = "UPDATE users SET password = ?, reset_token_hash = NULL, reset_token_expires_at = NULL WHERE id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$password_hash, $user_id]);
     }
 }

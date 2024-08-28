@@ -16,6 +16,11 @@ global $router;
 $router->get('/', [HomeController::class, 'index']);
 $router->get('/about', [HomeController::class, 'about']);
 $router->get('/contact', [HomeController::class, 'contact']);
+$router->get('/activepage', [HomeController::class, 'activepage']);
+$router->get('/forgotpassword', [HomeController::class, 'forgot_password']);
+$router->get('/resetpassword', [HomeController::class, 'resetpassword']);
+$router->post('/sendpasswordreset', [HomeController::class, 'sendpasswordreset']);
+$router->post('/resetpassword', 'HomeController@resetpassword');
 
 // /book?detail-id=1
 $router->get('/book/{id}', [HomeController::class, 'bookDetail']);
@@ -37,6 +42,8 @@ $router->post('/sign-in', [AuthController::class, 'signIn']);
 $router->get('/sign-up', [AuthController::class, 'signUp']);
 $router->post('/sign-up', [AuthController::class, 'signUp']);
 $router->get('/logout', [AuthController::class, 'logout']);
+
+
 
 
 // User profile routes
