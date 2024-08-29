@@ -223,6 +223,3 @@ document.addEventListener("DOMContentLoaded", function () {
       );
     });
 });
-document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("redirectUrl").value = window.location.href;
-});

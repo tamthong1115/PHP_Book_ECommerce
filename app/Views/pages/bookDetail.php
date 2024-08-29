@@ -23,7 +23,7 @@ ob_start();
                 </button>
             </form>
             <form class="" action="" method="POST">
-                <button type="submit" class="" data-book-id="<?= $book['id'] ?>">
+                <button type="submit" class="book-detail-submit" data-book-id="<?= $book['id'] ?>">
                     Mua ngay
                 </button>
             </form>

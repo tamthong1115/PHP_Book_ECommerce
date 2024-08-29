@@ -109,6 +109,3 @@
   width: 100%;
   text-align: center;
 }
-.footer__about>#footer_about_link>a:hover{
-  color: var(--link-hover-color);
-}

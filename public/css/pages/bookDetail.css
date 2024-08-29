@@ -51,13 +51,13 @@
   color: #666;
 }
 
-#price-in-detail {
+.book-info h3 {
   font-size: 1.5rem;
   color: #e74c3c;
   margin-bottom: 1.5rem;
 }
 
-button {
+.book-detail-submit {
   padding: 0.75rem 1.5rem;
   background-color: #3498db;
   color: #fff;
@@ -68,11 +68,11 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+.book-detail-submit:hover {
   background-color: #2980b9;
 }
 
-.book-info .price {
+#price-in-detail {
   font-size: 2rem;
   color: #e74c3c;
   margin-bottom: 1.5rem;
