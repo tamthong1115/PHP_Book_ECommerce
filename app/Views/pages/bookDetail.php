@@ -36,7 +36,21 @@ ob_start();
                 <span class="more-text" style="display: none;"><?= substr($book['description'], 100) ?></span>
                 <button class="read-more-btn">Xem thêm</button>
             </p>
+            <h3>$<?= htmlspecialchars($book['price']) ?></h3>
 
+            <div class="button-cart-container">
+
+                <form class="formAddToCart" action="<?= base_url('/cart/add/' . $book['id']) ?>" method="POST">
+                    <button type="submit" class="add-to-cart" data-book-id="<?= $book['id'] ?>">
+                        Thêm vào giỏ hàng
+                    </button>
+                </form>
+                <form class="" action="" method="POST">
+                    <button type="submit" class="" data-book-id="<?= $book['id'] ?>">
+                        Mua ngay
+                    </button>
+                </form>
+            </div>
         </div>
     </section>
     <script>
@@ -84,9 +98,9 @@ ob_start();
                     method: 'POST',
                 }).then(response => {
                     if (response.ok) {
-                        alert('Added to cart successfully');
+                        showMessage('success', 'Thêm vào giỏ hàng thành công');
                     } else {
-                        alert('Failed to add to cart');
+                        showMessage('error', 'Thêm vào giỏ hàng thất bại');
                     }
                 });
             });

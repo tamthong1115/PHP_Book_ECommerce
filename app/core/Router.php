@@ -38,6 +38,10 @@ class Router
     public function dispatch($uri)
     {
         $method = $_SERVER['REQUEST_METHOD'];
+
+        // Strip the query string from the URI
+        $uri = parse_url($uri, PHP_URL_PATH);
+
         $uri = $this->stripBasePath($uri);
         $queryParams = [];
         
@@ -50,7 +54,8 @@ class Router
         foreach ($this->routes[$method] as $routeUri => $route) {
             $pattern = preg_replace('/\{[^\}]+\}/', '([^/]+)', $routeUri);
             if (preg_match('#^' . $pattern . '$#', $uri, $matches)) {
-                array_shift($matches); // Remove the full match
+                array_shift($matches);
+
                 $action = $route['action'];
                 $middleware = $route['middleware'];
                 $request = $_SERVER;
@@ -78,7 +83,8 @@ class Router
         echo "404 Not Found";
     }
 
-    protected function stripBasePath($uri)
+
+    private function stripBasePath($uri)
     {
         if (strpos($uri, $this->basePath) === 0) {
             return substr($uri, strlen($this->basePath));

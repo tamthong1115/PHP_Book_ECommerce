@@ -1,5 +1,5 @@
 <?php
-$title = "Nhà sách TamThong";
+$title = "Nhà sách TamBao";
 ob_start();
 ?>
 <link rel="stylesheet" href="<?= base_url('/public/css/pages/home.css') ?>">

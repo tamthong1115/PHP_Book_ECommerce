@@ -1,7 +1,7 @@
 // Executes when document is loaded
 document.addEventListener("DOMContentLoaded", (ev) => {
   // Recent Orders Data
-  document.getElementById("recent-orders--table").appendChild(buildTableBody());
+  // document.getElementById("recent-orders--table").appendChild(buildTableBody());
 
   // Updates Data
   document
@@ -15,28 +15,28 @@ document.addEventListener("DOMContentLoaded", (ev) => {
 });
 
 // Document Builder
-const buildTableBody = () => {
-  const recentOrderData = RECENT_ORDER_DATA;
+// const buildTableBody = () => {
+//   const recentOrderData = RECENT_ORDER_DATA;
 
-  const tbody = document.createElement("tbody");
+//   const tbody = document.createElement("tbody");
 
-  let bodyContent = "";
-  for (const row of recentOrderData) {
-    bodyContent += `
-      <tr>
-        <td>${row.productName}</td>
-        <td>${row.productNumber}</td>
-        <td>${row.payment}</td>
-        <td class="${row.statusColor}">${row.status}</td>
-        <td class="primary">Details</td>
-      </tr>
-    `;
-  }
+//   let bodyContent = "";
+//   for (const row of recentOrderData) {
+//     bodyContent += `
+//       <tr>
+//         <td>${row.productName}</td>
+//         <td>${row.productNumber}</td>
+//         <td>${row.payment}</td>
+//         <td class="${row.statusColor}">${row.status}</td>
+//         <td class="primary">Details</td>
+//       </tr>
+//     `;
+//   }
 
-  tbody.innerHTML = bodyContent;
+//   tbody.innerHTML = bodyContent;
 
-  return tbody;
-};
+//   return tbody;
+// };
 
 const buildUpdatesList = () => {
   const updateData = UPDATE_DATA;

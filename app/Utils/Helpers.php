@@ -20,4 +20,10 @@ class Helpers
         }
         rmdir($dir);
     }
+
+
+    public function getPathImg($bookId, $imageUrl)
+    {
+        return base_url('/uploads/' . $bookId . '/' . $imageUrl);
+    }
 }

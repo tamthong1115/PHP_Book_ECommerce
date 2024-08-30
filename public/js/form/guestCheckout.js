@@ -154,12 +154,18 @@ document.addEventListener("DOMContentLoaded", function () {
             if (data.success) {
               window.location.href = data.returnUrl;
             } else {
-              alert(data.message || "An error occurred during payment.");
+              showMessage(
+                "error",
+                data.message || "Có lỗi xảy ra khi thanh toán."
+              );
             }
           })
           .catch((error) => {
             console.error("Error:", error);
-            alert("An error occurred during payment.");
+            showMessage(
+              "error",
+              data.message || "Có lỗi xảy ra khi thanh toán."
+            );
           });
       }
     });
