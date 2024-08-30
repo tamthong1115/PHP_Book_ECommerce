@@ -154,15 +154,16 @@ class Cart {
       .then((data) => {
         if (data.success) {
           // callback(true) will execute the code inside the if block in the updateQuantity method
+          showMessage("success", "Số lượng sản phẩm đã được cập nhật.");
           callback(true);
         } else {
-          alert(data.message);
+          showMessage("error", "Không thể cập nhật số lượng sản phẩm.");
           callback(false);
         }
       })
       .catch((error) => {
         console.error("Error:", error);
-        alert("An error occurred");
+        showMessage("error", "Có lỗi xảy ra khi cập nhật số lượng sản phẩm.");
         callback(false);
       });
   }

@@ -72,6 +72,50 @@ a {
 .border {
   border: 1px solid var(--border-color);
 }
+.prompt {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  width: auto;
+  max-width: 20rem;
+  border-radius: var(--border-radius);
+  font-family: var(--font-family);
+  position: fixed;
+  top: 5rem;
+  right: 1rem;
+  z-index: 10000000;
+  text-align: center;
+  animation: fadeIn 1s, fadeOut 4s 3s forwards;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.prompt-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.prompt-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.prompt-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: inherit;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.prompt-close:hover {
+  color: #000;
+}
 
 @keyframes fadeOut {
   0% {
@@ -92,31 +136,6 @@ a {
   100% {
     opacity: 1;
   }
-}
-
-.prompt {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  width: 13rem;
-  border-radius: var(--border-radius);
-  font-family: var(--font-family);
-  position: fixed;
-  top: 5rem;
-  right: 1rem;
-  transform: translateX(-50%);
-  z-index: 10000000;
-  text-align: center;
-  animation: fadeIn 1s, fadeOut 4s 3s forwards;
-}
-
-.prompt-success {
-  background-color: var(--success-color);
-  color: white;
-}
-
-.prompt-error {
-  background-color: var(--danger-color);
-  color: white;
 }
 
 .modal-signIn,

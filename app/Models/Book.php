@@ -22,6 +22,52 @@ class Book extends Model
         return $this->pdo->lastInsertId();
     }
 
+    public function searchBooks($query, $limit, $offset)
+    {
+        $sql = "SELECT b.*, i.image_url
+            FROM books b
+            LEFT JOIN book_images i ON b.id = i.book_id
+            WHERE b.name LIKE :query
+            GROUP BY b.id
+            LIMIT :limit OFFSET :offset";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':query', '%' . $query . '%', PDO::PARAM_STR);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countSearchResults($query)
+    {
+        $sql = "SELECT COUNT(*) FROM books WHERE name LIKE :query OR author LIKE :query1";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':query', '%' . $query . '%', PDO::PARAM_STR);
+        $stmt->bindValue(':query1', '%' . $query . '%', PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+    public function getBooks($limit, $offset)
+    {
+        $sql = "SELECT b.*, i.image_url 
+        FROM books b
+        LEFT JOIN book_images i ON b.id = i.book_id
+        GROUP BY b.id
+        LIMIT :limit OFFSET :offset";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function countBooks()
+    {
+        $sql = "SELECT COUNT(*) FROM books";
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchColumn();
+    }
+
     public function getBookById($id)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM books WHERE id = ?");

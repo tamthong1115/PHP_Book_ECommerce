@@ -7,6 +7,20 @@ use Models\Order;
 
 class OrderController extends Controller
 {
+
+    public function userOrders()
+    {
+        $orderModel = new Order();
+        $userId = $_SESSION['user_id']; // Assuming user ID is stored in session
+        $orders = $orderModel->getOrdersByUserId($userId);
+        foreach ($orders as &$order) {
+            $order['items'] = $orderModel->getOrderItemsByOrderId($order['id']);
+        }
+        $this->render('order/allOrders', [
+            'orders' => $orders
+        ]);
+    }
+
     public function orderSuccess($orderId)
     {
         $orderModel = new Order();
@@ -27,5 +41,26 @@ class OrderController extends Controller
         ]);
     }
 
-   
+
+    public function getRecentOrders()
+    {
+        $orderModel = new Order();
+        $recentOrders = $orderModel->getRecentOrders(7);
+        foreach ($recentOrders as &$order) {
+            $order['books'] = $orderModel->getBookNamesByOrderId($order['id']);
+        }
+        echo json_encode($recentOrders);
+    }
+
+    public function getAllOrders($page = 1)
+    {
+        $orderModel = new Order();
+        $ordersPerPage = 10;
+        $offset = ($page - 1) * $ordersPerPage;
+        $allOrders = $orderModel->getAllOrders($ordersPerPage, $offset);
+        foreach ($allOrders as &$order) {
+            $order['books'] = $orderModel->getBookNamesByOrderId($order['id']);
+        }
+        echo json_encode($allOrders);
+    }
 }

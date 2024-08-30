@@ -1,19 +1,19 @@
 <?php
-$title = "Home Admin";
+$title = "Trang chủ Admin";
 ob_start();
 ?>
 <div class="content">
     <main>
         <h1><?= $title ?></h1>
 
-        
+
         <div class="insights">
             <!-- SALES -->
             <div class="sales">
                 <span class="material-icons-sharp"> analytics </span>
                 <div class="middle">
                     <div class="left">
-                        <h3>Total Sales</h3>
+                        <h3>Tổng doanh thu</h3>
                         <h1>$25,024</h1>
                     </div>
                     <div class="progress">
@@ -25,7 +25,7 @@ ob_start();
                         </div>
                     </div>
                 </div>
-                <small class="text-muted"> Last 24 hours </small>
+                <small class="text-muted"> 24 giờ qua </small>
             </div>
 
             <!-- EXPENSES -->
@@ -45,7 +45,7 @@ ob_start();
                         </div>
                     </div>
                 </div>
-                <small class="text-muted"> Last 24 hours </small>
+                <small class="text-muted"> 24 giờ qua </small>
             </div>
 
             <!-- INCOME -->
@@ -53,7 +53,7 @@ ob_start();
                 <span class="material-icons-sharp"> stacked_line_chart </span>
                 <div class="middle">
                     <div class="left">
-                        <h3>Total Income</h3>
+                        <h3>Tổng lợi nhuận</h3>
                         <h1>$10,864</h1>
                     </div>
                     <div class="progress">
@@ -65,25 +65,24 @@ ob_start();
                         </div>
                     </div>
                 </div>
-                <small class="text-muted"> Last 24 hours </small>
+                <small class="text-muted"> 24 giờ qua </small>
             </div>
         </div>
 
         <div class="recent-orders">
-            <h2>Recent Orders</h2>
+            <h2>Đơn đặt hàng gần đây</h2>
             <table id="recent-orders--table">
                 <thead>
                     <tr>
-                        <th>Product Name</th>
-                        <th>Product Number</th>
-                        <th>Payment</th>
-                        <th>Status</th>
+                        <th>Tên khách hàng</th>
+                        <th>Tên sách</th>
+                        <th>Trạng thái</th>
                         <th></th>
                     </tr>
                 </thead>
                 <!-- Add tbody here | JS insertion -->
             </table>
-            <a href="#">Show All</a>
+            <a href="#">Hiện tất cả</a>
         </div>
 
     </main>
@@ -107,6 +106,49 @@ ob_start();
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const recentOrdersTable = document.getElementById('recent-orders--table');
+        const showAllLink = document.querySelector('.recent-orders a');
+
+        function renderOrders(orders) {
+            const tbody = document.createElement('tbody');
+            orders.forEach(order => {
+                const tr = document.createElement('tr');
+                const bookNames = order.books.join(', ');
+                tr.innerHTML = `
+                <td>${order.username}</td>
+                <td>${bookNames}</td>
+                <td>${order.status}</td>
+                <td class="primary">Chi tiết</td>
+            `;
+                tbody.appendChild(tr);
+            });
+            recentOrdersTable.appendChild(tbody);
+        }
+
+        function fetchRecentOrders() {
+            fetch('<?= base_url('/admin/orders/recent') ?>')
+                .then(response => response.json())
+                .then(data => renderOrders(data));
+        }
+
+        function fetchAllOrders(page = 1) {
+            fetch(`<?= base_url('/admin/orders/all?page=') ?>${page}`)
+                .then(response => response.json())
+                .then(data => renderOrders(data));
+        }
+
+        showAllLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            recentOrdersTable.querySelector('tbody').remove();
+            fetchAllOrders();
+        });
+
+        fetchRecentOrders();
+    });
+</script>
 <?php
 $content = ob_get_clean();
 include __DIR__ . '/../layout/layoutAdmin.php';

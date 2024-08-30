@@ -1,6 +1,13 @@
 <?php
+
+use Utils\Helpers;
+
+$helpers = new Helpers();
+
 $title = 'Giỏ hàng';
 ob_start();
+
+
 ?>
 <link rel="stylesheet" href="<?= base_url('/public/css/pages/cart.css') ?>">
 <div class="cart">
@@ -34,7 +41,7 @@ ob_start();
 
                                 <div class="img-product-cart">
                                     <a href="<?= base_url("/book/{$cartItem['book_id']}") ?>">
-                                        <img src="<?= base_url('/uploads/' . $cartItem['book_id'] . '/' . $cartItem['image_url']) ?>"
+                                        <img src="<?= $helpers->getPathImg($cartItem['book_id'], $cartItem['image_url']) ?>"
                                             alt="<?= $cartItem['name'] ?>">
                                     </a>
                                 </div>

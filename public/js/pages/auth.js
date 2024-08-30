@@ -55,6 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
             modalSignIn.close();
             if (data.isAdmin) {
               window.location.href = base_url + "/admin";
+            } else {
+              window.location.reload();
             }
           } else {
             const messageDiv = document.getElementById("message");

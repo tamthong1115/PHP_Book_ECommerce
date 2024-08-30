@@ -122,7 +122,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.prev, .next {
+.prev,
+.next {
   cursor: pointer;
   position: absolute;
   top: 50%;
@@ -142,8 +143,9 @@
   border-radius: 3px 0 0 3px;
 }
 
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
 .book-info .description {
   position: relative;
@@ -158,4 +160,18 @@
   padding: 0;
   margin: 0;
   text-decoration: underline;
+}
+
+.button-cart-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.button-cart-container form{
+  width: 47%;
+}
+
+.button-cart-container button {
+  width: 100%;
 }

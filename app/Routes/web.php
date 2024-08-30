@@ -4,6 +4,7 @@ use App\Controllers\HomeController;
 use App\Controllers\UserController;
 use App\Controllers\AuthController;
 use App\Controllers\OrderController;
+use App\Controllers\SearchController;
 
 use App\Controllers\Admin\HomeAdminController;
 use App\Controllers\Admin\BookAdminController;
@@ -22,7 +23,9 @@ $router->get('/resetpassword', [HomeController::class, 'resetpassword']);
 $router->post('/sendpasswordreset', [HomeController::class, 'sendpasswordreset']);
 $router->post('/resetpassword', [HomeController::class, 'resetpassword']);
 
-// /book?detail-id=1
+$router->get('/search', [SearchController::class, 'index']);
+
+
 $router->get('/book/{id}', [HomeController::class, 'bookDetail']);
 
 // cart
@@ -48,10 +51,14 @@ $router->get('/logout', [AuthController::class, 'logout']);
 $router->get('/users/profile', [UserController::class, 'profile']);
 $router->get('/users/updateProfile', [UserController::class, 'updateProfile']);
 $router->post('/users/updateProfile', [UserController::class, 'updateProfile']);
-
+$router->get('/users/orders', [OrderController::class, 'userOrders']);
 
 $router->get('/admin', [HomeAdminController::class, 'index'], [AdminMiddleware::class]);
 $router->get('/admin/books', [BookAdminController::class, 'index'], [AdminMiddleware::class]);
 $router->get('/admin/books/add-book', [BookAdminController::class, 'add'], [AdminMiddleware::class]);
 $router->post('/admin/books/add-book', [BookAdminController::class, 'add'], [AdminMiddleware::class]);
 $router->post('/admin/books/delete/{id}', [BookAdminController::class, 'delete'], [AdminMiddleware::class]);
+
+
+$router->get('/admin/orders/recent', [OrderController::class, 'getRecentOrders']);
+$router->get('/admin/orders/all', [OrderController::class, 'getAllOrders']);

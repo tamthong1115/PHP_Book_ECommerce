@@ -10,7 +10,7 @@ use Ramsey\Uuid\Uuid;
 class Order extends Model
 {
 
-    public function insertOrder( $userId, $totalAmount, $status, $orderSubtotal)
+    public function insertOrder($userId, $totalAmount, $status, $orderSubtotal)
     {
 
         $orderId = Uuid::uuid4()->toString();
@@ -55,5 +55,81 @@ class Order extends Model
             ':status' => $status,
             ':id' => $orderId
         ]);
+    }
+
+    public function getOrdersByUserId($userId)
+    {
+        $sql = "SELECT od.*, u.username as username
+                FROM order_details od
+                JOIN users u ON od.user_id = u.id
+                WHERE od.user_id = :user_id
+                ORDER BY od.created_at DESC";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['user_id' => $userId]);
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getOrderItemsByOrderId($orderId)
+    {
+        $query = "
+            SELECT 
+                oi.book_id,
+                oi.quantity, 
+                oi.price, 
+                b.name AS book_name, 
+                COALESCE(bi.image_url, 'default_image_url') AS image_url
+            FROM order_item oi
+            JOIN books b ON oi.book_id = b.id
+            LEFT JOIN (
+                SELECT book_id, MIN(image_url) AS image_url
+                FROM book_images
+                GROUP BY book_id
+            ) bi ON b.id = bi.book_id
+            WHERE oi.order_id = :order_id
+        ";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':order_id', $orderId);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
+    public function getRecentOrders($limit)
+    {
+        $sql = "SELECT order_details.*, u.username as username
+            FROM order_details 
+            JOIN users u ON order_details.user_id = u.id
+            ORDER BY order_details.created_at DESC LIMIT :limit";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+
+    public function getAllOrders($limit, $offset)
+    {
+        $sql = "SELECT *, u.username as username,
+            FROM order_details ORDER BY created_at DESC LIMIT :limit OFFSET :offset";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getBookNamesByOrderId($orderId)
+    {
+        $sql = "SELECT b.name
+                FROM books b
+                JOIN order_item oi ON b.id = oi.book_id
+                WHERE oi.order_id = :order_id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['order_id' => $orderId]);
+        return $stmt->fetchAll(\PDO::FETCH_COLUMN);
     }
 }
