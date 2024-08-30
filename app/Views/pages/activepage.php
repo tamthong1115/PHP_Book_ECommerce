@@ -1,17 +1,9 @@
 <?php
-require_once __DIR__ . '/../../../vendor/autoload.php'; // Adjust the path as needed
 
 use Models\User;
 use Utils\AuthUtil;
-function base_url($route = '')
-{
-    return BASE_URL . $route;
-}
-define('BASE_URL', '/PHP_Book_ECommerce'); 
 
 $token = $_GET["token"];
-
-
 
 $userModel = new User();
 $user = $userModel->findByActivationHash($token);

@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title; ?></title>
     <!-- favicon -->
-    <link rel="icon" href="/PHP_Book_ECommerce/public/img/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/PHP_Book_ECommerce/public/icons/favicon.gif" type="image/gif">
+    <link rel="icon" href="<?= base_url('/public/img/favicon.ico') ?>" type="image/x-icon">
+
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="<?= base_url('/public/fontawesome/css/all.css') ?>">
+
     <!-- css -->
-    
     <link rel="stylesheet" href="<?= base_url('/public/css/pages/auth.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/public/css/pages/contact.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/public/css/pages/about.css') ?>">

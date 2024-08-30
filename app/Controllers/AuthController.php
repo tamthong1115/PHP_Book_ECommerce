@@ -70,16 +70,18 @@ class AuthController extends Controller
     }
 
     public function signUp()
-    {   $redirectUrl = $_POST['redirectUrl'] ?? '/';
+    {
+        $redirectUrl = $_POST['redirectUrl'] ?? '/';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = !empty($_POST['email']) ? $_POST['email'] : null;
             $password = $_POST['password'];
             $confirmPassword = $_POST['confirm_password'];
 
             if ($password !== $confirmPassword) {
-                $this->render('layout/layout', ['error' => 'Passwords do not match']);
+                echo json_encode(['success' => false, 'message' => 'Mật khẩu không trùng.']);
                 return;
             }
+
             $activation_token = bin2hex(random_bytes(16));
             $activation_token_hash = hash("sha256", $activation_token);
             $data = [
@@ -96,48 +98,41 @@ class AuthController extends Controller
             ];
 
             $userModel = new User();
-        if ($userModel->createUser($data)) {
-            
+            if ($userModel->createUser($data)) {
+                // Send activation email
+                $mail = require __DIR__ . "/Mailer.php";
+                $mail->setFrom("noreply@example.com");
+                $mail->addAddress($_POST['email']);
+                $mail->Subject = "Account Activation";
+                $mail->Body = <<<END
+                Click <a href="http://localhost/PHP_Book_ECommerce/activepage?token=$activation_token_hash">here</a> to activate your account.
+                END;
 
-            // Gửi email kích hoạt
-            $mail = require __DIR__ . "/mailer.php";
-            $mail->setFrom("noreply@example.com");
-            $mail->addAddress($_POST['email']);
-            $mail->Subject = "Account Activation";
-            $mail->Body = <<<END
-            Click <a href="http://localhost/PHP_Book_ECommerce/app/Views/pages/activepage.php?token=$activation_token_hash">ở đây</a> 
-            để kích hoạt tài khoản.
-            END;
-
-            try {
-                $mail->send();
-                $this->render('layout/layout', ['success' => 'Please check your email to activate your account']);
-            } catch (Exception $e) {
-                echo "Message could not be sent. Mailer error: {$mail->ErrorInfo}";
-                exit;
+                if ($mail->send()) {
+                    echo json_encode(['success' => true, 'message' => 'Tạo tài khoản thành công. Vui lòng kiểm tra email.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Gửi email thất bại. Vui lòng thử lại.']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Đăng ký không thành công.']);
             }
-        } else {
-            $this->render('layout/layout', ['error' => 'Failed to create user']);
         }
-    } else {
-        $this->redirect('/');
-    }
     }
     public function activateAccount()
     {
-    if (isset($_GET['token'])) {
-        $token = $_GET['token'];
-        $token_hash = hash("sha256", $token);
+        if (isset($_GET['token'])) {
+            $token = $_GET['token'];
+            $token_hash = hash("sha256", $token);
 
-        $userModel = new User();
-        if ($userModel->activateUser($token_hash)) {
-            $this->render('layout/layout', ['success' => 'Your account has been activated successfully']);
+            $userModel = new User();
+            if ($userModel->activateUser($token_hash)) {
+                $this->render('layout/layout', ['success' => 'Tài khoản đã được kích hoạt.']);
+            } else {
+                $this->render('layout/layout', ['error' => 'Mã kích hoạt không hợp lệ']);
+            }
         } else {
-            $this->render('layout/layout', ['error' => 'Invalid activation token']);
+            $this->redirect('/');
         }
-    } else {
-        $this->redirect('/');
-    }
     }
 
     public function logout()
@@ -146,6 +141,4 @@ class AuthController extends Controller
         session_destroy();
         $this->redirect('/');
     }
-    
 }
-

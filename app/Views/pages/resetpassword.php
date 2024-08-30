@@ -1,39 +1,34 @@
 <?php
 $title="Đặt lại mật khẩu";
 ob_start();
-require_once __DIR__ . '/../../../vendor/autoload.php';
 use Models\User;
-define('BASE_URL', '/PHP_Book_ECommerce');
-function base_url($route = '')
-{
-    return BASE_URL . $route;
-}
+
 $token = $_GET["token"];
 $token_hash = hash("sha256", $token);
 $userModel = new User();
 $user = $userModel->findByResetTokenHash($token);
 if ($user === false) {
-    header("Location: resetpassword.php?token=$token&error=Token không hợp lệ hoặc đã hết hạn.");
+    header("Location: resetpassword?token=$token&error=Token không hợp lệ hoặc đã hết hạn.");
     exit();
 }
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (strtotime($user["reset_token_expires_at"]) <= time()) {
-        header("Location: resetpassword.php?token=$token&error=Token đã hết hạn.");
+        header("Location: resetpassword?token=$token&error=Token đã hết hạn.");
         exit();
     }
     if (strlen($_POST["password"]) < 8) {
-        header("Location: resetpassword.php?token=$token&error=Mật khẩu phải có ít nhất 8 ký tự.");
+        header("Location: resetpassword?token=$token&error=Mật khẩu phải có ít nhất 8 ký tự.");
         exit();
     }
     if ($_POST["password"] !== $_POST["password_confirmation"]) {
-        header("Location: resetpassword.php?token=$token&error=Mật khẩu không khớp.");
+        header("Location: resetpassword?token=$token&error=Mật khẩu không khớp.");
         exit();
     }
     $password_hash = password_hash($_POST["password"], PASSWORD_DEFAULT);
     $userModel->updatePassword($user["id"], $password_hash);
     echo "<script>
         alert('Mật khẩu đã được cập nhật. Bạn có thể đăng nhập ngay bây giờ.');
-        window.location.href = '" . base_url('/index.php') . "';
+        window.location.href = '" . base_url('/') . "';
     </script>";
     exit();
 }
