@@ -39,46 +39,48 @@ class Router
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $uri = $this->stripBasePath($uri);
+        $queryParams = [];
+        
+        // Parse query string
+        if (strpos($uri, '?') !== false) {
+            list($uri, $queryString) = explode('?', $uri, 2);
+            parse_str($queryString, $queryParams);
+        }
 
         foreach ($this->routes[$method] as $routeUri => $route) {
             $pattern = preg_replace('/\{[^\}]+\}/', '([^/]+)', $routeUri);
             if (preg_match('#^' . $pattern . '$#', $uri, $matches)) {
                 array_shift($matches); // Remove the full match
-
                 $action = $route['action'];
                 $middleware = $route['middleware'];
-
                 $request = $_SERVER;
-                $next = function ($request) use ($action, $matches) {
+                $next = function ($request) use ($action, $matches, $queryParams) {
                     if (is_callable($action)) {
-                        call_user_func_array($action, $matches);
+                        call_user_func_array($action, array_merge($matches, [$queryParams]));
                     } elseif (is_array($action)) {
                         $controller = new $action[0]();
                         $method = $action[1];
-                        call_user_func_array([$controller, $method], $matches);
+                        call_user_func_array([$controller, $method], array_merge($matches, [$queryParams]));
                     }
                 };
-
                 foreach (array_reverse($middleware) as $middlewareClass) {
                     $next = function ($request) use ($middlewareClass, $next) {
                         $middlewareInstance = new $middlewareClass();
-                        return $middlewareInstance->handle($request, $next);
+                        $middlewareInstance->handle($request, $next);
                     };
                 }
-
                 $next($request);
                 return;
             }
         }
-
         // Handle 404 Not Found
         header("HTTP/1.0 404 Not Found");
         echo "404 Not Found";
     }
 
-    private function stripBasePath($uri)
+    protected function stripBasePath($uri)
     {
-        if ($this->basePath && strpos($uri, $this->basePath) === 0) {
+        if (strpos($uri, $this->basePath) === 0) {
             return substr($uri, strlen($this->basePath));
         }
         return $uri;

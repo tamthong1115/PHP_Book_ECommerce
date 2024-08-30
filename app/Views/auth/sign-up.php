@@ -7,7 +7,7 @@
             <div class="error-message" id="usernameError"></div>
         </div>
         <div class="form-group">
-            <input type="email" id="email" name="email" placeholder="Email (Tuỳ chọn)">
+            <input type="email" id="email" name="email" placeholder="Email">
             <div class="error-message" id="emailError"></div>
         </div>
         <div class="form-group">
@@ -24,4 +24,5 @@
             <a href="#" class="open-modal-signIn">Đăng nhập tại đây</a>
         </div>
     </form>
+    <input type="hidden" id="redirectUrl" name="redirectUrl" value="">
 </div>

@@ -20,5 +20,9 @@
             <p>Chưa có tài khoản?</p>
             <a href="#" class="open-modal-signUp">Đăng ký tại đây</a>
         </div>
+        <div class="navigate-container">
+            <p>Quên mật khẩu?</p>
+            <a href="<?= base_url('/forgotpassword') ?>">Đặt lại mật khẩu</a>
+        </div>
     </form>
 </div>

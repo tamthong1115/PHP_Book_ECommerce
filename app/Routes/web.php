@@ -16,6 +16,11 @@ global $router;
 $router->get('/', [HomeController::class, 'index']);
 $router->get('/about', [HomeController::class, 'about']);
 $router->get('/contact', [HomeController::class, 'contact']);
+$router->get('/activepage', [HomeController::class, 'activepage']);
+$router->get('/forgotpassword', [HomeController::class, 'forgot_password']);
+$router->get('/resetpassword', [HomeController::class, 'resetpassword']);
+$router->post('/sendpasswordreset', [HomeController::class, 'sendpasswordreset']);
+$router->post('/resetpassword', [HomeController::class, 'resetpassword']);
 
 // /book?detail-id=1
 $router->get('/book/{id}', [HomeController::class, 'bookDetail']);

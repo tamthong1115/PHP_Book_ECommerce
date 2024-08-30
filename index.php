@@ -37,3 +37,5 @@ function base_url($route = '')
 {
     return BASE_URL . $route;
 }
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();

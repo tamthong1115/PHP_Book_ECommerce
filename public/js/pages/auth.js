@@ -69,6 +69,37 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+  document
+    .querySelector("#signUpForm")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(this);
+      fetch(this.action, {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            showMessage(
+              "success",
+              data.message ||
+                "Tài khoản đăng ký thành công. Vui lòng kiểm tra email."
+            );
+            modalSignUp.close();
+          } else {
+            const messageDiv = document.getElementById("message");
+            messageDiv.textContent = data.message;
+            messageDiv.className = `message message-${data.type}`;
+            window.location.reload();
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+
   const accountContainer = document.querySelector(".header_account_container");
   const accountDropdown = document.getElementById("accountDropdown");
 

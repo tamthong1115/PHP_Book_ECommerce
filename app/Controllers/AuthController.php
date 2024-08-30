@@ -7,6 +7,7 @@ use Core\Controller;
 use Models\User;
 use Utils\jwtUtil;
 use Utils\Csrf;
+use \Exception;
 
 class AuthController extends Controller
 {
@@ -33,7 +34,7 @@ class AuthController extends Controller
                 $user = $this->model->findByUsername($identifier);
             }
 
-            if ($user && password_verify($password, $user['password'])) {
+            if ($user && password_verify($password, $user['password']) && $user['account_activation_hash'] === null) {
                 $payload = [
                     'user_id' => $user['id'],
                     'username' => $user['username'],
@@ -70,16 +71,19 @@ class AuthController extends Controller
 
     public function signUp()
     {
+        $redirectUrl = $_POST['redirectUrl'] ?? '/';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = !empty($_POST['email']) ? $_POST['email'] : null;
             $password = $_POST['password'];
             $confirmPassword = $_POST['confirm_password'];
 
             if ($password !== $confirmPassword) {
-                $this->render('layout/layout', ['error' => 'Passwords do not match']);
+                echo json_encode(['success' => false, 'message' => 'Mật khẩu không trùng.']);
                 return;
             }
 
+            $activation_token = bin2hex(random_bytes(16));
+            $activation_token_hash = hash("sha256", $activation_token);
             $data = [
                 'avatar' => $_POST['avatar'] ?? null,
                 'first_name' => $_POST['first_name'] ?? null,
@@ -90,13 +94,41 @@ class AuthController extends Controller
                 'birth_of_date' => $_POST['birth_of_date'] ?? null,
                 'phone_number' => $_POST['phone_number'] ?? null,
                 'address' => $_POST['address'] ?? null,
+                'account_activation_hash' => $activation_token_hash
             ];
 
             $userModel = new User();
             if ($userModel->createUser($data)) {
-                $this->render('layout/layout', ['success' => 'User created successfully']);
+                // Send activation email
+                $mail = require __DIR__ . "/Mailer.php";
+                $mail->setFrom("noreply@example.com");
+                $mail->addAddress($_POST['email']);
+                $mail->Subject = "Account Activation";
+                $mail->Body = <<<END
+                Click <a href="http://localhost/PHP_Book_ECommerce/activepage?token=$activation_token_hash">here</a> to activate your account.
+                END;
+
+                if ($mail->send()) {
+                    echo json_encode(['success' => true, 'message' => 'Tạo tài khoản thành công. Vui lòng kiểm tra email.']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Gửi email thất bại. Vui lòng thử lại.']);
+                }
             } else {
-                $this->render('layout/layout', ['error' => 'Failed to create user']);
+                echo json_encode(['success' => false, 'message' => 'Đăng ký không thành công.']);
+            }
+        }
+    }
+    public function activateAccount()
+    {
+        if (isset($_GET['token'])) {
+            $token = $_GET['token'];
+            $token_hash = hash("sha256", $token);
+
+            $userModel = new User();
+            if ($userModel->activateUser($token_hash)) {
+                $this->render('layout/layout', ['success' => 'Tài khoản đã được kích hoạt.']);
+            } else {
+                $this->render('layout/layout', ['error' => 'Mã kích hoạt không hợp lệ']);
             }
         } else {
             $this->redirect('/');

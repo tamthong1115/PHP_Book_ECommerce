@@ -57,7 +57,7 @@
   margin-bottom: 1.5rem;
 }
 
-.book-info button {
+.book-detail-submit {
   padding: 0.75rem 1.5rem;
   background-color: #3498db;
   color: #fff;
@@ -68,11 +68,11 @@
   transition: background-color 0.3s ease;
 }
 
-.book-info button:hover {
+.book-detail-submit:hover {
   background-color: #2980b9;
 }
 
-.book-info .price {
+#price-in-detail {
   font-size: 2rem;
   color: #e74c3c;
   margin-bottom: 1.5rem;
@@ -91,7 +91,7 @@
   line-height: 1.6;
 }
 
-.book-info .add-to-cart {
+.add-to-cart {
   display: inline-block;
   padding: 0.75rem 1.5rem;
   background-color: #27ae60;
@@ -103,7 +103,7 @@
   transition: background-color 0.3s ease;
 }
 
-.book-info .add-to-cart:hover {
+.add-to-cart:hover {
   background-color: #219150;
 }
 .slideshow-container {

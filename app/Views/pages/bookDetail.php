@@ -16,6 +16,17 @@ ob_start();
                 <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
+            <h3 id="price-in-detail">$<?= htmlspecialchars($book['price']) ?></h3>
+            <form class="formAddToCart" action="<?= base_url('/cart/add/' . $book['id']) ?>" method="POST">
+                <button type="submit" class="add-to-cart" data-book-id="<?= $book['id'] ?>">
+                    Thêm vào giỏ hàng
+                </button>
+            </form>
+            <form class="" action="" method="POST">
+                <button type="submit" class="book-detail-submit" data-book-id="<?= $book['id'] ?>">
+                    Mua ngay
+                </button>
+            </form>
         </div>
         <div class="book-info">
             <h1><?= htmlspecialchars($book['name']) ?></h1>
@@ -25,17 +36,7 @@ ob_start();
                 <span class="more-text" style="display: none;"><?= substr($book['description'], 100) ?></span>
                 <button class="read-more-btn">Xem thêm</button>
             </p>
-            <h3>$<?= htmlspecialchars($book['price']) ?></h3>
-            <form class="formAddToCart" action="<?= base_url('/cart/add/' . $book['id']) ?>" method="POST">
-                <button type="submit" class="add-to-cart" data-book-id="<?= $book['id'] ?>">
-                    Thêm vào giỏ hàng
-                </button>
-            </form>
-            <form class="" action="" method="POST">
-                <button type="submit" class="" data-book-id="<?= $book['id'] ?>">
-                    Mua ngay
-                </button>
-            </form>
+
         </div>
     </section>
     <script>
