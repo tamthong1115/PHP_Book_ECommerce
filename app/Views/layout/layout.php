@@ -38,7 +38,7 @@
 
     <div class="container">
 
-        <main>
+        <main class="main-container">
             <?php echo $content; ?>
         </main>
         <?php include 'footer.php'; ?>

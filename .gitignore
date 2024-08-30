@@ -8,3 +8,5 @@ local
 
 vendor/
 db_data/
+
+.vscode/

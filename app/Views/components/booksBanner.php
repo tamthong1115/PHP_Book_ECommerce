@@ -57,20 +57,23 @@ $helpers = new Helpers();
 </section>
 
 <script>
-    const formAddToCart = document.querySelectorAll('.formAddToCart');
-    formAddToCart.forEach(form => {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const bookId = form.querySelector('.add-to-cart').getAttribute('data-book-id');
-            fetch('<?= base_url('/cart/add/') ?>' + bookId, {
-                method: 'POST',
-            }).then(response => {
-                if (response.ok) {
-                    showMessage('success', "Thêm vào giỏ hàng thành công");
-                } else {
-                    showMessage('error', "Thêm vào giỏ hàng thất bại");
-                }
+    // Immediately invoked function expression (IIFE)
+    (function() {
+        const formAddToCart = document.querySelectorAll('.formAddToCart');
+        formAddToCart.forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const bookId = form.querySelector('.add-to-cart').getAttribute('data-book-id');
+                fetch('<?= base_url('/cart/add/') ?>' + bookId, {
+                    method: 'POST',
+                }).then(response => {
+                    if (response.ok) {
+                        showMessage('success', "Thêm vào giỏ hàng thành công");
+                    } else {
+                        showMessage('error', "Thêm vào giỏ hàng thất bại");
+                    }
+                });
             });
         });
-    });
+    })();
 </script>
