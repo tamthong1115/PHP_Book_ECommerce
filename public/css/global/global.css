@@ -21,6 +21,10 @@ body {
   margin-left: auto;
 }
 
+.main-container {
+  min-height: 90vh;
+}
+
 /* H element global */
 html {
   scroll-behavior: smooth;
