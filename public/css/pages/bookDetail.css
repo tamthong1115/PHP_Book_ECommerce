@@ -3,6 +3,7 @@
   display: flex;
   gap: 2rem;
   padding: 2rem;
+  padding-top: 100px;
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -110,6 +111,9 @@
   position: relative;
   max-width: 100%;
   margin: auto;
+  width: 400px; /* Đặt chiều rộng cố định cho khung slideshow */
+  /* Đặt chiều cao cố định cho khung slideshow */
+  overflow: hidden; /* Đảm bảo các ảnh không tràn ra ngoài khung chứa */
 }
 
 .mySlides {
@@ -174,4 +178,74 @@
 
 .button-cart-container button {
   width: 100%;
+}
+.book-detail-buttons{
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.slideshow-container img {
+  width: 100%; /* Đặt chiều rộng của ảnh bằng chiều rộng của khung chứa */
+  height: 400px; /* Đặt chiều cao của ảnh bằng chiều cao của khung chứa */
+  object-fit: cover; /* Đảm bảo ảnh được cắt để vừa với khung chứa */
+}
+.thongtinchitiet{
+  flex: 1;
+  text-align: center;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.similar-books {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.similar-books h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.book-item {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  text-align: center;
+}
+
+.book-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.book-item h3 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.book-item p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.book-item a {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
 }

@@ -20,7 +20,7 @@ ob_start();
 ?>
     <h1>Account Activated</h1>
     <p>Account activated successfully. You can now
-       <a href="<?php base_url('/home.php'); ?>">log in</a></p>
+       <a href="<?php base_url('/'); ?>">log in</a></p>
 <?php
 $content = ob_get_clean();
 include __DIR__ . '/../layout/layout.php';

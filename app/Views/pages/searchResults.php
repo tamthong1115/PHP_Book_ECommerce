@@ -8,13 +8,13 @@ ob_start();
 <div class="searchPageContainer">
     <?php if (isset($query) && !empty($query)): ?>
         <div class="searchBanner">
-            <h1>Search Results for "<?= htmlspecialchars($query) ?>"</h1>
+            <h1>Kết quả cho:  "<?= htmlspecialchars($query) ?>"</h1>
         </div>
     <?php endif; ?>
     <div class="searchFilter"></div>
     <div class="bookSearchContent">
         <?php if (empty($results)): ?>
-            <p>No results found.</p>
+            <p>Không có kết quả tìm kiếm.</p>
         <?php else: ?>
             <ul>
                 <div class="pro-container">
