@@ -11,9 +11,11 @@
 
 .book-images {
   flex: 1;
-  display: flex;
   flex-direction: column;
   align-items: center;
+  position: sticky;
+  top: 0; /* Khoảng cách từ đỉnh của viewport */
+  z-index: 10;
 }
 
 .book-images img {
@@ -22,6 +24,11 @@
   border-radius: 10px;
   margin-bottom: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#price-in-detail{
+  text-align: center;
+  width: 100%;
 }
 
 .book-info {
@@ -196,7 +203,7 @@
   background-color: #fff;
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 .similar-books {
   margin-top: 2rem;
