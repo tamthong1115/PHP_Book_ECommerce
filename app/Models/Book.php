@@ -179,4 +179,25 @@ class Book extends Model
             $helpers->deleteDirectory($uploadDir);
         }
     }
+    public function getBooksByPublisher($publisher, $excludeBookId)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM books WHERE publisher = :publisher AND id != :excludeBookId LIMIT 5");
+        $stmt->bindParam(':publisher', $publisher);
+        $stmt->bindParam(':excludeBookId', $excludeBookId);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    public function getFirstImage($bookId) {
+        $uploadDir = __DIR__ . '/../../uploads/' . $bookId;
+        if (is_dir($uploadDir)) {
+            $images = scandir($uploadDir);
+            foreach ($images as $image) {
+                if ($image !== '.' && $image !== '..') {
+                    return base_url('/uploads/' . $bookId . '/' . $image);
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -17,6 +17,7 @@ ob_start();
                 <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
             <h3 id="price-in-detail">$<?= htmlspecialchars($book['price']) ?></h3>
+            <div class="book-detail-buttons">
             <form class="formAddToCart" action="<?= base_url('/cart/add/' . $book['id']) ?>" method="POST">
                 <button type="submit" class="add-to-cart" data-book-id="<?= $book['id'] ?>">
                     Thêm vào giỏ hàng
@@ -27,6 +28,7 @@ ob_start();
                     Mua ngay
                 </button>
             </form>
+            </div>
         </div>
         <div class="book-info">
             <h1><?= htmlspecialchars($book['name']) ?></h1>
@@ -36,23 +38,45 @@ ob_start();
                 <span class="more-text" style="display: none;"><?= substr($book['description'], 100) ?></span>
                 <button class="read-more-btn">Xem thêm</button>
             </p>
-            <h3>$<?= htmlspecialchars($book['price']) ?></h3>
-
-            <div class="button-cart-container">
-
-                <form class="formAddToCart" action="<?= base_url('/cart/add/' . $book['id']) ?>" method="POST">
-                    <button type="submit" class="add-to-cart" data-book-id="<?= $book['id'] ?>">
-                        Thêm vào giỏ hàng
-                    </button>
-                </form>
-                <form class="" action="" method="POST">
-                    <button type="submit" class="" data-book-id="<?= $book['id'] ?>">
-                        Mua ngay
-                    </button>
-                </form>
+            
             </div>
-        </div>
+        
+        
     </section>
+    <div class="thongtinchitiet">
+            <h2>Thông tin chi tiết</h2>
+            <p>Tên nhà cung cấp: <?= htmlspecialchars($book['supplier']) ?></p>
+            <p>Tác giả: <?= htmlspecialchars($book['author']) ?></p>
+            <p>Nhà xuất bản: <?= htmlspecialchars($book['publisher']) ?></p>
+            <p>Năm xuất bản: <?= htmlspecialchars($book['publication_year']) ?></p>
+            <p>Ngôn ngữ: <?= htmlspecialchars($book['language']) ?></p>
+            <p>Số trang: <?= htmlspecialchars($book['pages']) ?></p>
+            <p>Trọng lượng(gram): <?= htmlspecialchars($book['weight']) ?></p>
+            <p>Hình thức: <?= htmlspecialchars($book['format']) ?></p>
+        </div>
+        <div class="similar-books">
+    <h2>Sách tương tự từ nhà xuất bản <?= htmlspecialchars($book['publisher']) ?></h2>
+    <div class="book-list">
+        <?php if (!empty($similarBooks) && is_array($similarBooks)): ?>
+            <?php foreach ($similarBooks as $similarBook): ?>
+                <div class="book-item">
+                <?php
+                    $bookModel = new \Models\Book;
+                    $image = $bookModel->getFirstImage($similarBook['id']);
+                    ?>
+                    <img src="<?= htmlspecialchars($image) ?>" alt="<?= htmlspecialchars($similarBook['name'] ?? '') ?>">
+    <h3><?= htmlspecialchars($similarBook['name'] ?? '') ?></h3>
+    <p><?= htmlspecialchars($similarBook['author'] ?? '') ?></p>
+    <p><?= htmlspecialchars($similarBook['price'] ?? '0') ?> VND</p>
+    <a href="<?= base_url('/bookDetail/' . ($similarBook['id'] ?? '')) ?>">Xem chi tiết</a>
+</div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>Không có sách tương tự nào.</p>
+        <?php endif; ?>
+    </div>
+</div>
+                    
     <script>
         let slideIndex = 1;
         showSlides(slideIndex);

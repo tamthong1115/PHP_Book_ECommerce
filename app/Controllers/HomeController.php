@@ -59,6 +59,18 @@ class HomeController extends Controller
             return $image['image_url'];
         }, $book['images']);
         $book['images'] = $imageUrls;
-        $this->render('pages/bookDetail', ['book' => $book]);
+
+        // Fetch similar books by the same publisher
+        $similarBooks = $this->bookSimilar($book['publisher'], $id);
+
+        $this->render('pages/bookDetail', [
+            'book' => $book,
+            'similarBooks' => $similarBooks
+        ]);
+    }
+    private function bookSimilar($publisher, $excludeBookId)
+    {
+        $bookModel = new Book();
+        return $bookModel->getBooksByPublisher($publisher, $excludeBookId);
     }
 }

@@ -113,6 +113,7 @@ ob_start();
         const showAllLink = document.querySelector('.recent-orders a');
 
         function renderOrders(orders) {
+            console.log(orders);
             const tbody = document.createElement('tbody');
             orders.forEach(order => {
                 const tr = document.createElement('tr');
