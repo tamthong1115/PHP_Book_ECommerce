@@ -111,6 +111,9 @@ small {
   height: 2.8rem;
   border-radius: 50%;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .text-muted {
   color: var(--color-info-dark);

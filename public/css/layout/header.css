@@ -17,6 +17,10 @@
   justify-content: center;
 }
 
+.header__icon {
+  width: 20px;
+}
+
 .header__search * {
   background-color: white;
 }
@@ -90,13 +94,17 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  justify-content: center;
+  align-items: center;
 }
-.dropdown-content div {
+.dropdown-content div,
+.dropdown-container a {
   border-radius: 8px;
   margin-bottom: 0.775rem;
 }
 
-.dropdown-content button {
+.dropdown-content button,
+.dropdown-container a {
   padding: 12px 20px;
   text-decoration: none;
   width: 100%;
@@ -129,6 +137,24 @@
 
 .signUp-dropdown:hover {
   background-color: #f9f7f7;
+}
+
+.dropdown-container .dropdown-a {
+  color: #333;
+  text-decoration: none;
+  border: solid 1px black;
+  height: 100%;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-container .dropdown-a:hover {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+.dropdown-container .dropdown-a:active {
+  background-color: #e0e0e0;
+  color: #000;
 }
 
 .header_account {

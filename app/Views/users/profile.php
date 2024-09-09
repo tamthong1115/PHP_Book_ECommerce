@@ -4,15 +4,15 @@ ob_start();
 ?>
 <link rel="stylesheet" href="<?= base_url('/public/css/pages/profile.css') ?>">
 <div class="profile-container">
-    <h1>User Profile</h1>
+    <h1>Trang cá nhân</h1>
     <div class="profile-card">
         <img src="<?= htmlspecialchars($user['avatar'] ?? '') ?>" alt="Avatar" class="avatar">
-        <p><?= htmlspecialchars(($user['first_name'] ?? 'Add your first name') . ' ' . ($user['last_name'] ?? 'Add your last name')) ?></p>
-        <p><strong>Username:</strong> <?= htmlspecialchars($user['username'] ?? 'Add your username') ?></p>
-        <p><strong>Email:</strong> <?= htmlspecialchars($user['email'] ?? 'Add your email') ?></p>
-        <p><strong>Phone Number:</strong> <?= htmlspecialchars($user['phone_number'] ?? 'Add your phone number') ?></p>
-        <p><strong>Birth Date:</strong> <?= htmlspecialchars($user['birth_of_date'] ?? 'Add your birth date') ?></p>
-        <p><strong>Address:</strong>
+        <p><?= htmlspecialchars(($user['first_name'] ?? 'Thêm họ') . ' ' . ($user['last_name'] ?? 'Thêm tên')) ?></p>
+        <p><strong>Tên tài khoản:</strong> <?= htmlspecialchars($user['username'] ?? 'Thêm tên tài khoản') ?></p>
+        <p><strong>Email:</strong> <?= htmlspecialchars($user['email'] ?? 'Thêm email') ?></p>
+        <p><strong>Số điện thoại:</strong> <?= htmlspecialchars($user['phone_number'] ?? 'Thêm số điện thoại') ?></p>
+        <p><strong>Ngày sinh:</strong> <?= htmlspecialchars($user['birth_of_date'] ?? 'Thêm ngày sinh') ?></p>
+        <p><strong>Địa chỉ:</strong>
             <?php
             $addressParts = array_filter([
                 $user['address_line_1'] ?? '',
@@ -21,10 +21,10 @@ ob_start();
                 $user['ward'] ?? '',
                 $user['district'] ?? ''
             ]);
-            echo htmlspecialchars(implode(', ', $addressParts) ?: 'Add your address');
+            echo htmlspecialchars(implode(', ', $addressParts) ?: 'Thêm địa chỉ');
             ?>
         </p>
-        <a href="<?= base_url('/users/updateProfile') ?>" class="btn">Edit Profile</a>
+        <a href="<?= base_url('/users/updateProfile') ?>" class="btn">Chỉnh sửa</a>
     </div>
 </div>
 

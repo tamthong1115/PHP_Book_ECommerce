@@ -23,7 +23,7 @@ use Utils\AuthUtil; ?>
                 <li class="navLi" id="about"><a class="aTag" href="<?php echo base_url('/about') ?>">Về chúng tôi</a></li>
                 <li class="navLi" id="contact"><a class="aTag" href="<?php echo base_url('/contact') ?>">Liên hệ</a></li>
 
-
+                <li class="navLi" id="order-tracking"><a class="aTag" href="<?= base_url('/order/search') ?>"><img class="header__icon" src="<?= base_url('/public/img/header/order.svg') ?>" alt="Tìm kiếm đơn hàng"></a></li>
 
                 <div class="header_account_container">
                     <a class="aTag" href="#" id="accountLink">
@@ -37,9 +37,9 @@ use Utils\AuthUtil; ?>
                     <div id="accountDropdown" class="dropdown-content">
                         <?php if (AuthUtil::isLoggedIn()): ?>
                             <div class="dropdown-container">
-                                <a href="<?= base_url('/users/profile') ?>">Trang cá nhân</a>
-                                <a href="<?= base_url('/users/orders') ?>">Đơn hàng của tôi</a> <!-- New link -->
-                                <a href="<?= base_url('/logout') ?>">Đăng xuất</a>
+                                <a class="dropdown-a" href="<?= base_url('/users/profile') ?>">Trang cá nhân</a>
+                                <a class="dropdown-a" href="<?= base_url('/users/orders') ?>">Đơn hàng của tôi</a> <!-- New link -->
+                                <a class="dropdown-a" href="<?= base_url('/logout') ?>">Đăng xuất</a>
                             </div>
                         <?php else: ?>
                             <div class="signIn-dropdown">

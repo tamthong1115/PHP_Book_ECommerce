@@ -150,6 +150,12 @@ class Book extends Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function updateBook($id, $data){
+        $sql = "UPDATE books SET name = :name, description = :description, summary = :summary, price = :price, stock = :stock, author = :author, publisher = :publisher, supplier = :supplier, language = :language, publication_year = :publication_year, pages = :pages, weight = :weight, format = :format WHERE id = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(array_merge(['id' => $id], $data));
+    }
+
     public function deleteBook($bookId)
     {
         // Delete book images

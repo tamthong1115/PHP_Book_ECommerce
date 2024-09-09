@@ -17,7 +17,7 @@
             <span class="material-icons-sharp"> person_outline </span>
             <h3>Khách hàng</h3>
         </a>
-        <a href="#">
+        <a href="<?= base_url('/admin/orders/allOrders') ?>">
             <span class="material-icons-sharp"> receipt_long </span>
             <h3>Đơn hàng</h3>
         </a>
@@ -48,3 +48,40 @@
         </a>
     </div>
 </aside>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebarLinks = document.querySelectorAll('.sidebar a');
+
+        // Function to set the active class
+        function setActiveLink(link) {
+            // Remove 'active' class from all links
+            sidebarLinks.forEach(link => link.classList.remove('active'));
+
+            // Add 'active' class to the clicked link
+            link.classList.add('active');
+
+            // Store the href of the active link in localStorage
+            localStorage.setItem('activeSidebarLink', link.getAttribute('href'));
+        }
+
+        // Initialize active link based on localStorage
+        const storedLink = localStorage.getItem('activeSidebarLink');
+        if (storedLink) {
+            const activeLink = [...sidebarLinks].find(link => link.getAttribute('href') === storedLink);
+            if (activeLink) {
+                setActiveLink(activeLink);
+            }
+        }
+
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                setActiveLink(this);
+                // If the link navigates to a different page, no need to prevent default
+                // If you need to handle SPA (Single Page Application), you can prevent default behavior here
+            });
+        });
+    });
+</script>
+
+</body>

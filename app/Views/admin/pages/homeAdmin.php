@@ -82,18 +82,17 @@ ob_start();
                 </thead>
                 <!-- Add tbody here | JS insertion -->
             </table>
-            <a href="#">Hiện tất cả</a>
+            <a href="<?= base_url('/admin/orders/allOrders') ?>">Hiện tất cả</a>
         </div>
 
     </main>
     <div class="right">
         <div class="recent-updates">
-            <h2>Recent Updates</h2>
-            <!-- Add updates div here | JS insertion -->
+            <h2>Đơn hàng gần đây</h2>
         </div>
 
         <div class="sales-analytics">
-            <h2>Sales Analytics</h2>
+            <h2>Phân tích doanh số</h2>
             <div id="analytics">
                 <!-- Add items div here | JS insertion -->
             </div>
@@ -110,7 +109,7 @@ ob_start();
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const recentOrdersTable = document.getElementById('recent-orders--table');
-        const showAllLink = document.querySelector('.recent-orders a');
+        const recentUpdates = document.getElementsByClassName("recent-updates")[0]
 
         function renderOrders(orders) {
             const tbody = document.createElement('tbody');
@@ -118,35 +117,94 @@ ob_start();
                 const tr = document.createElement('tr');
                 const bookNames = order.books.join(', ');
                 tr.innerHTML = `
-                <td>${order.username}</td>
+                <td>${order.username  || "Khách vãng lai"}</td>
                 <td>${bookNames}</td>
                 <td>${order.status}</td>
-                <td class="primary">Chi tiết</td>
+                <td class="primary" data-order-id="${order.id}">Chi tiết</td>
             `;
                 tbody.appendChild(tr);
             });
             recentOrdersTable.appendChild(tbody);
         }
 
+        const buildUpdatesList = async (orders) => {
+
+
+            const statusMessages = {
+                cancel: 'đã hủy đơn hàng.',
+                pending: 'đang chờ xử lý đơn hàng.',
+                success: 'đã nhận đơn hàng.'
+            };
+
+            function timeDifference(previous) {
+                const current = new Date();
+                const msPerMinute = 60 * 1000;
+                const msPerHour = msPerMinute * 60;
+                const msPerDay = msPerHour * 24;
+                const msPerMonth = msPerDay * 30;
+                const msPerYear = msPerDay * 365;
+
+                const elapsed = current - previous;
+
+                if (elapsed < msPerMinute) {
+                    return Math.round(elapsed / 1000) + ' giây trước';
+                } else if (elapsed < msPerHour) {
+                    return Math.round(elapsed / msPerMinute) + ' phút trước';
+                } else if (elapsed < msPerDay) {
+                    return Math.round(elapsed / msPerHour) + ' giờ trước';
+                } else if (elapsed < msPerMonth) {
+                    return Math.round(elapsed / msPerDay) + ' ngày trước';
+                } else if (elapsed < msPerYear) {
+                    return Math.round(elapsed / msPerMonth) + ' tháng trước';
+                } else {
+                    return Math.round(elapsed / msPerYear) + ' năm trước';
+                }
+            }
+
+            const div = document.createElement("div");
+            div.classList.add("updates");
+
+            let updateContent = "";
+            for (const update of orders) {
+                const createdAt = new Date(update.created_at);
+                updateContent += `
+                <div class="update">
+                    <div class="profile-photo">
+                    <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="message">
+                    <p><b>${update.username  || "Khách vãng lai"}</b> ${statusMessages[update.status] || update.status} </p>
+                    <small class="text-muted">${timeDifference(createdAt)}</small>
+                    </div>
+                </div>
+                `;
+            }
+
+            div.innerHTML = updateContent;
+
+            recentUpdates.appendChild(div);
+        };
+
         function fetchRecentOrders() {
             fetch('<?= base_url('/admin/orders/recent') ?>')
                 .then(response => response.json())
-                .then(data => renderOrders(data));
+                .then(data => {
+                    renderOrders(data)
+                    buildUpdatesList(data)
+                });
         }
-
-        function fetchAllOrders(page = 1) {
-            fetch(`<?= base_url('/admin/orders/all?page=') ?>${page}`)
-                .then(response => response.json())
-                .then(data => renderOrders(data));
-        }
-
-        showAllLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            recentOrdersTable.querySelector('tbody').remove();
-            fetchAllOrders();
-        });
 
         fetchRecentOrders();
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const recentOrdersTable = document.getElementById('recent-orders--table');
+        recentOrdersTable.addEventListener('click', function(event) {
+            if (event.target.classList.contains('primary')) {
+                const orderId = event.target.getAttribute('data-order-id');
+                window.location.href = `<?= base_url('/admin/orders?orderId='); ?>${orderId}`;
+            }
+        });
     });
 </script>
 <?php

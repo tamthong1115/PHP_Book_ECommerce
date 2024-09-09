@@ -41,6 +41,27 @@ class OrderController extends Controller
         ]);
     }
 
+    public function searchOrder()
+    {
+        $orderId = $_GET['orderId'] ?? null;
+        if ($orderId) {
+            $this->redirect('/order/track?orderId=' . urlencode($orderId));
+        } else {
+            $this->render('order/searchTrackOrder', ['error' => 'Mã đơn hàng không hợp lệ']);
+        }
+    }
+
+    public function trackOrder()
+    {
+        $orderId = $_GET['orderId'] ?? null;
+        if ($orderId) {
+            $orderModel = new Order();
+            $order = $orderModel->getOrderById($orderId);
+            $this->render('order/trackOrder', ['order' => $order]);
+        } else {
+            $this->render('order/trackOrder', ['error' => 'Mã đơn hàng không hợp lệ']);
+        }
+    }
 
     public function getRecentOrders()
     {
