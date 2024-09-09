@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title; ?></title>
     <link rel="stylesheet" href="/PHP_Book_ECommerce/public/admin/css/style.css">
+    <link rel="stylesheet" href="<?= base_url('/public/fontawesome/css/all.css') ?>">
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet" />
 </head>

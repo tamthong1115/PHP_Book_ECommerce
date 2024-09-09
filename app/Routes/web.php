@@ -6,8 +6,10 @@ use App\Controllers\AuthController;
 use App\Controllers\OrderController;
 use App\Controllers\SearchController;
 
+
 use App\Controllers\Admin\HomeAdminController;
 use App\Controllers\Admin\BookAdminController;
+use App\Controllers\Admin\OrderAdminController;
 use App\Controllers\CartController;
 use App\Middleware\AdminMiddleware;
 
@@ -40,6 +42,9 @@ $router->get('/guest/checkout', [CartController::class, 'guestCheckoutForm']);
 $router->get('/payment/success/{orderId}', [OrderController::class, 'orderSuccess']);
 $router->get('/payment/fail/{orderId}', [OrderController::class, 'orderFail']);
 
+$router->get('/order/search', [OrderController::class, 'searchOrder']);
+$router->get('/order/track', [OrderController::class, 'trackOrder']);
+
 $router->get('/sign-in', [AuthController::class, 'signIn']);
 $router->post('/sign-in', [AuthController::class, 'signIn']);
 $router->get('/sign-up', [AuthController::class, 'signUp']);
@@ -60,5 +65,6 @@ $router->post('/admin/books/add-book', [BookAdminController::class, 'add'], [Adm
 $router->post('/admin/books/delete/{id}', [BookAdminController::class, 'delete'], [AdminMiddleware::class]);
 
 
-$router->get('/admin/orders/recent', [OrderController::class, 'getRecentOrders']);
-$router->get('/admin/orders/all', [OrderController::class, 'getAllOrders']);
+$router->get('/admin/orders/allOrders', [OrderAdminController::class, 'renderAllOrders']);
+$router->get('/admin/orders/recent', [OrderAdminController::class, 'getRecentOrders']);
+$router->get('/admin/orders?{orderId}', [OrderAdminController::class, 'getOrderDetails']);

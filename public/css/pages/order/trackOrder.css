@@ -1,0 +1,52 @@
+.track-order-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.track-order-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.order-details {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-items-list {
+  list-style: none;
+  padding: 0;
+}
+
+.order-items-list li {
+  display: flex;
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.img-product-order {
+  flex-basis: 16%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-product-order img {
+  width: auto;
+  max-height: 150px;
+}
+
+.book-order-detail {
+  flex-grow: 1;
+  padding-left: 15px;
+}
+
+.book-order-detail p {
+  margin: 5px 0;
+}
